@@ -1,0 +1,101 @@
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeFirestore, persistentLocalCache, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const host = location.hostname;
+const onFirebaseHost = host.endsWith(".web.app") || host.endsWith(".firebaseapp.com");
+const firebaseConfig = {
+  apiKey: "AIzaSyBvS1Fp7iPQOIyKwocf_MgDjeA6XDLwQhw",
+  // No Firebase Hosting o login roda no mesmo domínio do site, o que evita bloqueio de cookies de terceiros.
+  authDomain: onFirebaseHost ? host : "diario-de-termina.firebaseapp.com",
+  projectId: "diario-de-termina",
+  storageBucket: "diario-de-termina.firebasestorage.app",
+  messagingSenderId: "151708886578",
+  appId: "1:151708886578:web:9f68f83bc5e96bee3d3e2b"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.languageCode = "pt-BR";
+const db = initializeFirestore(app, { localCache: persistentLocalCache() });
+const provider = new GoogleAuthProvider();
+
+const $ = id => document.getElementById(id);
+const ui = { login: $("b-login"), acct: $("b-acct"), avatar: $("avatar"), menu: $("menu"), sync: $("sync"), name: $("acct-name"), email: $("acct-email"), info: $("save-info") };
+
+let user = null, unsub = null, ready = false, timer = null;
+
+function setSync(text, ok) { ui.sync.hidden = !text; ui.sync.textContent = text || ""; ui.sync.classList.toggle("ok", !!ok); }
+function clean(o) { const r = {}; for (const k in o) if (o[k]) r[k] = 1; return r; }
+
+window.cloudPush = () => {
+  if (!user || !ready) return;
+  setSync("Salvando…");
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
+    try {
+      await setDoc(doc(db, "users", user.uid), { state: clean(window.tracker.get()), updatedAt: serverTimestamp() });
+      setSync("Salvo", true);
+    } catch (e) { console.error(e); setSync("Erro ao salvar"); }
+  }, 400);
+};
+
+async function startSync(u) {
+  const ref = doc(db, "users", u.uid);
+  setSync("Sincronizando…");
+  try {
+    const snap = await getDoc(ref);
+    const remote = snap.exists() ? (snap.data().state || {}) : {};
+    const local = window.tracker.get();
+    const merged = clean({ ...remote, ...local });
+    window.tracker.set(merged);
+    ready = true;
+    if (JSON.stringify(Object.keys(merged).sort()) !== JSON.stringify(Object.keys(remote).sort())) window.cloudPush();
+    else setSync("Salvo", true);
+  } catch (e) { console.error(e); setSync("Sem conexão"); ready = true; }
+  unsub = onSnapshot(ref, s => {
+    if (!s.exists() || s.metadata.hasPendingWrites) return;
+    const remote = clean(s.data().state || {});
+    if (JSON.stringify(remote) !== JSON.stringify(clean(window.tracker.get()))) window.tracker.set(remote);
+  });
+}
+
+onAuthStateChanged(auth, u => {
+  user = u; ready = false;
+  if (unsub) { unsub(); unsub = null; }
+  ui.login.hidden = !!u;
+  ui.acct.hidden = !u;
+  ui.menu.hidden = true;
+  if (u) {
+    ui.avatar.src = u.photoURL || "icons/favicon.png";
+    ui.name.textContent = u.displayName || "Sua conta";
+    ui.email.textContent = u.email || "";
+    if (ui.info) ui.info.textContent = `Conectado como ${u.email || u.displayName}. Seu progresso fica salvo na conta e sincroniza entre aparelhos.`;
+    startSync(u);
+  } else {
+    setSync("");
+    if (ui.info) ui.info.textContent = "Sem login, o progresso fica salvo só neste aparelho. Entre com Google no topo para salvar na sua conta e ver o mesmo progresso no celular e no PC.";
+  }
+});
+
+getRedirectResult(auth).catch(e => console.error(e));
+
+ui.login.addEventListener("click", async () => {
+  try { await signInWithPopup(auth, provider); }
+  catch (e) {
+    if (["auth/popup-blocked", "auth/operation-not-supported-in-this-environment", "auth/cancelled-popup-request"].includes(e.code)) signInWithRedirect(auth, provider);
+    else if (e.code !== "auth/popup-closed-by-user") { console.error(e); alert("Não foi possível entrar: " + e.code); }
+  }
+});
+ui.acct.addEventListener("click", e => { e.stopPropagation(); ui.menu.hidden = !ui.menu.hidden; ui.acct.setAttribute("aria-expanded", String(!ui.menu.hidden)); });
+document.addEventListener("click", e => { if (!ui.menu.hidden && !ui.menu.contains(e.target)) ui.menu.hidden = true; });
+$("b-logout").addEventListener("click", async () => {
+  await signOut(auth);
+  // O progresso já está na conta; limpar evita misturar com a próxima pessoa que entrar neste aparelho.
+  window.tracker.set({});
+});
+</script>
+<script>
+if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+</script>
