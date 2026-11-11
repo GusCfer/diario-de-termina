@@ -120,7 +120,7 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2
 .hearts span{aspect-ratio:16/15;background:#3a2a1e;clip-path:path("M8 15 L1.2 8.2 A3.9 3.9 0 0 1 8 2.6 A3.9 3.9 0 0 1 14.8 8.2 Z");width:100%}
 .hearts span.full{background:var(--red)}
 /* coração em quartos, como a tela de pedaços do jogo: cruz escura dividindo 4 partes, preenchidas em sentido horário a partir do canto superior esquerdo */
-.hearts span.part,.qheart{background:
+.qheart{background:
   linear-gradient(90deg,transparent calc(50% - .6px),#140d08 calc(50% - .6px) calc(50% + .6px),transparent calc(50% + .6px)),
   linear-gradient(180deg,transparent calc(55% - .6px),#140d08 calc(55% - .6px) calc(55% + .6px),transparent calc(55% + .6px)),
   conic-gradient(from -90deg at 50% 55%,var(--red) calc(var(--q)*90deg),#3a2a1e 0)}
@@ -495,7 +495,6 @@ function heartsData(){
   let s="";
   for(let i=0;i<20;i++){
     if(i<total)s+='<span class="full"></span>';
-    else if(i===total&&rem)s+=`<span class="part" style="--q:${rem}"></span>`;
     else s+="<span></span>";
   }
   return {pieces,cont,total,rem,s};
