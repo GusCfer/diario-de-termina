@@ -383,6 +383,9 @@ const KEY="mm-tracker-v1";
 let S={};
 try{S=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){S={}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+/* a Giant's Wallet saiu da aba de máscaras: leva a marcação antiga para o item */
+function migrate(o){if(o&&o.gwallet){o.w2=1;delete o.gwallet}return o}
+S=migrate(S);
 const has=id=>!!S[id];
 const CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
@@ -708,7 +711,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{const c=e.target.closest?.(".card");if(c&&(e.key===" "||e.key==="Enter")){e.preventDefault();toggle(c.dataset.toggle)}});
 
-window.tracker={get:()=>S,set:(o)=>{S=o||{};save();renderAll();paint()}};
+window.tracker={get:()=>S,set:(o)=>{S=migrate(o||{});save();renderAll();paint()}};
 renderAll(); route();
 </script>
 __AUTH__

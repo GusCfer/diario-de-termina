@@ -86,7 +86,7 @@ const PHASES = [
    steps:["Tenha uma Red Potion ou Blue Potion num frasco.","Vá até a Road to Ikana, depois da estrada de Termina Field.","Use a Lens of Truth dentro do círculo de pedras para ver o soldado Shiro.","Dê a poção a ele e receba a máscara."],
    tip:"Ótima para o Pirates' Fortress e para seguir o Sakon na quest do Kafei sem ser visto."}
  ]},
- {t:"Depois de Great Bay", s:"Você já tem a Zora Mask e as Ice Arrows", items:[
+ {t:"Depois de Great Bay", s:"Você já tem a Zora Mask e as Ice Arrows", note:"Aproveite para pegar a Giant's Wallet na Ocean Spider House logo no dia 1 (aba Itens). Ela é necessária para a All-Night Mask", items:[
   {id:"zora",img:"m03",shot:"s03",n:"Zora Mask",pt:"Máscara Zora",tr:1,loc:"Great Bay Coast",req:["Epona's Song","Song of Healing"],
    fx:"Transforma Link em Zora: nada rápido, mergulha, lança barbatanas e solta escudo elétrico.",
    how:"Vem pela história, com o Mikau.",
@@ -101,12 +101,7 @@ const PHASES = [
    fx:"Permite falar com os Gibdos e faz os ReDeads dançarem.",
    how:"Cure o pai da Pamela no Music Box House, em Ikana.",
    steps:["Em Ikana Canyon, entre na Spring Water Cave atrás da Music Box House.","Toque a Song of Storms para o fantasma do Sharp. O rio volta a correr e a caixa de música toca.","A Pamela sai da casa. Entre sem ser visto (a Stone Mask ajuda).","Desça ao porão e toque a Song of Healing para o pai dela.","Ele volta ao normal e dá a máscara."],
-   tip:"Se a Pamela te vir, ela tranca a porta. Jogue uma bomba perto da casa para ela sair de novo."},
-  {id:"gwallet",img:"i_OoT_Giants_Wallet",shot:"w250",ms:"₨",n:"Giant's Wallet",pt:"Carteira Gigante, 500 rupees",milestone:1,loc:"Ocean Spider House, Great Bay Coast",req:["Hookshot","Bombas","Arco"],
-   fx:"Aumenta o limite da carteira para 500 rupees.",
-   how:"Complete a Ocean Spider House logo no dia 1.",
-   steps:["Toque a Song of Time e comece um ciclo novo.","Vá direto para a Ocean Spider House, na Great Bay Coast, ainda no dia 1.","Derrote as 30 Gold Skulltulas. Use o Hookshot, quebre os vasos e procure atrás de quadros e das máscaras na parede.","Fale com o homem na entrada. No dia 1 ele dá a Giant's Wallet."],
-   tip:"Nos dias 2 e 3 o prêmio vira rupees. Ela é necessária para pagar os 500 rupees da All-Night Mask."}
+   tip:"Se a Pamela te vir, ela tranca a porta. Jogue uma bomba perto da casa para ela sair de novo."}
  ]},
  {t:"Quest da Anju e do Kafei", s:"Dá para fazer num ciclo só", quest:"missao-anju", note:"Faça depois de Great Bay ou de Stone Tower, quando já tiver as músicas e o dinheiro. No mesmo ciclo dá para comprar a All-Night Mask na Curiosity Shop na noite 3 por 500 rupees. Isso só funciona se você tiver salvado a velhinha no dia 1.", items:[
   {id:"keaton",quest:1,img:"m09",shot:"s09",n:"Keaton Mask",pt:"Máscara do Keaton",loc:"Casa do Kafei, Laundry Pool",req:["Kafei's Mask"],
@@ -257,7 +252,7 @@ const QUEST_ANJU = {
   {id:"kafei",t:"Kafei's Mask",d:"Para a Anju aceitar falar com você."},
   {id:"stone",t:"Stone Mask",d:"Para esperar o Sakon sem ser visto."},
   {id:"garo",t:"Garo's Mask, Hookshot e Ice Arrows",d:"Para chegar a Ikana Canyon no dia 3."},
-  {id:"gwallet",t:"Giant's Wallet e 500 rupees",d:"Para comprar a All-Night Mask na noite 3."},
+  {id:"w2",t:"Giant's Wallet e 500 rupees",d:"Para comprar a All-Night Mask na noite 3."},
   {id:"c3",t:"Song of Soaring",d:"Para ir e voltar rápido entre Clock Town e Ikana."}
  ],
  days:[
