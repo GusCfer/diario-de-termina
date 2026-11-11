@@ -820,12 +820,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { initializeFirestore, persistentLocalCache, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const host = location.hostname;
-const onFirebaseHost = host.endsWith(".web.app") || host.endsWith(".firebaseapp.com");
 const firebaseConfig = {
   apiKey: "AIzaSyBvS1Fp7iPQOIyKwocf_MgDjeA6XDLwQhw",
-  // No Firebase Hosting o login roda no mesmo domínio do site, o que evita bloqueio de cookies de terceiros.
-  authDomain: onFirebaseHost ? host : "diario-de-termina.firebaseapp.com",
+  authDomain: "diario-de-termina.firebaseapp.com",
   projectId: "diario-de-termina",
   storageBucket: "diario-de-termina.firebasestorage.app",
   messagingSenderId: "151708886578",
