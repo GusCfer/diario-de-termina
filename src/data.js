@@ -55,7 +55,7 @@ const PHASES = [
    tip:"Na primavera, reúna os 5 sapos e reja o coral para ganhar um pedaço de coração."}
  ]},
  {t:"Depois de Snowhead", s:"Você já tem Powder Keg e acesso ao rancho", items:[
-  {id:"epona",ms:"♪",n:"Epona",pt:"Não é máscara, mas libera várias",milestone:1,loc:"Romani Ranch",req:["Powder Keg","Arco"],
+  {id:"epona",shot:"c09",ms:"♪",n:"Epona",pt:"Não é máscara, mas libera várias",milestone:1,loc:"Romani Ranch",req:["Powder Keg","Arco"],
    fx:"Toque a Epona's Song para chamar a égua. Ela é necessária para a corrida dos Gorman e para chegar a Great Bay e Ikana.",
    how:"No Romani Ranch, aprenda a Epona's Song com a Romani no dia 1.",
    steps:["Passe no teste do Medigoron na Goron Village para ganhar o Powder Keg.","No dia 1, exploda a pedra gigante que bloqueia a Milk Road.","Entre no Romani Ranch e fale com a Romani.","Faça o treino de arco a cavalo e estoure os balões em menos de 2 minutos, antes da noite.","A Romani ensina a Epona's Song."],
@@ -102,7 +102,7 @@ const PHASES = [
    how:"Cure o pai da Pamela no Music Box House, em Ikana.",
    steps:["Em Ikana Canyon, entre na Spring Water Cave atrás da Music Box House.","Toque a Song of Storms para o fantasma do Sharp. O rio volta a correr e a caixa de música toca.","A Pamela sai da casa. Entre sem ser visto (a Stone Mask ajuda).","Desça ao porão e toque a Song of Healing para o pai dela.","Ele volta ao normal e dá a máscara."],
    tip:"Se a Pamela te vir, ela tranca a porta. Jogue uma bomba perto da casa para ela sair de novo."},
-  {id:"gwallet",ms:"₨",n:"Giant's Wallet",pt:"Carteira Gigante, 500 rupees",milestone:1,loc:"Ocean Spider House, Great Bay Coast",req:["Hookshot","Bombas","Arco"],
+  {id:"gwallet",shot:"w250",ms:"₨",n:"Giant's Wallet",pt:"Carteira Gigante, 500 rupees",milestone:1,loc:"Ocean Spider House, Great Bay Coast",req:["Hookshot","Bombas","Arco"],
    fx:"Aumenta o limite da carteira para 500 rupees.",
    how:"Complete a Ocean Spider House logo no dia 1.",
    steps:["Toque a Song of Time e comece um ciclo novo.","Vá direto para a Ocean Spider House, na Great Bay Coast, ainda no dia 1.","Derrote as 30 Gold Skulltulas. Use o Hookshot, quebre os vasos e procure atrás de quadros e das máscaras na parede.","Fale com o homem na entrada. No dia 1 ele dá a Giant's Wallet."],
@@ -148,11 +148,11 @@ const BOSSES = [["odolwa","Odolwa","Woodfall Temple"],["goht","Goht","Snowhead T
 
 const ITEM_GROUPS = [
  {t:"Carteiras", items:[
-  {id:"w1",ms:"₨",n:"Adult's Wallet",pt:"Até 200 rupees",loc:"Banco, West Clock Town",req:["200 rupees"],fx:"Aumenta o limite de 99 para 200 rupees.",
+  {id:"w1",shot:"w079",ms:"₨",n:"Adult's Wallet",pt:"Até 200 rupees",loc:"Banco, West Clock Town",req:["200 rupees"],fx:"Aumenta o limite de 99 para 200 rupees.",
    how:"Deposite 200 rupees no banco de West Clock Town.",
    steps:["Junte rupees (Treasure Chest Shop, grama e potes ajudam).","Vá ao banco em West Clock Town e fale com o atendente.","Deposite até somar 200 rupees no total.","Ele entrega a Adult's Wallet."],
    tip:"Os depósitos somam entre os ciclos. O banco guarda o dinheiro quando você toca a Song of Time."},
-  {id:"w2",ms:"₨",n:"Giant's Wallet",pt:"Até 500 rupees",loc:"Ocean Spider House",req:["Hookshot","Bombas","Arco"],fx:"Aumenta o limite para 500 rupees.",
+  {id:"w2",shot:"w250",ms:"₨",n:"Giant's Wallet",pt:"Até 500 rupees",loc:"Ocean Spider House",req:["Hookshot","Bombas","Arco"],fx:"Aumenta o limite para 500 rupees.",
    how:"Ocean Spider House no dia 1: derrote as 30 Gold Skulltulas.",
    steps:["Comece um ciclo novo e vá à Ocean Spider House, na Great Bay Coast.","Derrote as 30 Gold Skulltulas ainda no dia 1.","Fale com o homem rico na entrada para ganhar a carteira."],
    tip:"Nos dias 2 e 3 o prêmio vira rupees, então faça logo no dia 1."}
@@ -184,52 +184,52 @@ const ITEM_GROUPS = [
    tip:"Se entregar a carta ao carteiro, você ganha o Postman's Hat em vez do frasco. Faça um em cada ciclo."}
  ]},
  {t:"Bolsas de bomba", items:[
-  {id:"bb1",ms:"●",n:"Bomb Bag",pt:"20 bombas",loc:"Bomb Shop, West Clock Town",req:["50 rupees"],fx:"Permite carregar bombas.",
+  {id:"bb1",shot:"w047",ms:"●",n:"Bomb Bag",pt:"20 bombas",loc:"Bomb Shop, West Clock Town",req:["50 rupees"],fx:"Permite carregar bombas.",
    how:"Compre na Bomb Shop por 50 rupees.",steps:["Volte à forma humana.","Entre na Bomb Shop em West Clock Town.","Compre a Bomb Bag por 50 rupees."],tip:"Como Deku você não pode comprar. Volte a ser humano antes."},
-  {id:"bb2",ms:"●",n:"Big Bomb Bag",pt:"30 bombas",loc:"Bomb Shop ou Curiosity Shop",req:["90 rupees"],fx:"Aumenta para 30 bombas.",
+  {id:"bb2",shot:"w048",ms:"●",n:"Big Bomb Bag",pt:"30 bombas",loc:"Bomb Shop ou Curiosity Shop",req:["90 rupees"],fx:"Aumenta para 30 bombas.",
    how:"Bomb Shop por 90 rupees se salvou a velhinha; senão, Curiosity Shop na noite 3.",
    steps:["Na noite 1, salve a velhinha do Sakon em North Clock Town.","A partir do dia 2, compre a Big Bomb Bag na Bomb Shop por 90 rupees.","Se não salvou, ela aparece na Curiosity Shop na noite 3, mais cara."],tip:"Salvar a velhinha também dá a Blast Mask e libera a All-Night Mask."},
-  {id:"bb3",ms:"●",n:"Biggest Bomb Bag",pt:"40 bombas",loc:"Goron Village",req:["Goron Mask","200 rupees"],fx:"Aumenta para 40 bombas.",
+  {id:"bb3",shot:"w114",ms:"●",n:"Biggest Bomb Bag",pt:"40 bombas",loc:"Goron Village",req:["Goron Mask","200 rupees"],fx:"Aumenta para 40 bombas.",
    how:"Business Scrub da Goron Village, falando como Goron, por 200 rupees.",
    steps:["Tenha a Adult's Wallet e 200 rupees.","Na Goron Village, encontre o Business Scrub.","Fale com ele como Goron e compre a Biggest Bomb Bag."],tip:"Precisa já ter a Big Bomb Bag."}
  ]},
  {t:"Arco e aljavas", items:[
-  {id:"q1",ms:"➶",n:"Hero's Bow",pt:"30 flechas",loc:"Woodfall Temple",req:["Deku Mask"],fx:"Arco com 30 flechas.",
+  {id:"q1",shot:"w059",ms:"➶",n:"Hero's Bow",pt:"30 flechas",loc:"Woodfall Temple",req:["Deku Mask"],fx:"Arco com 30 flechas.",
    how:"Woodfall Temple, ao vencer o Dinolfos.",steps:["Avance pelo Woodfall Temple.","Na sala do subchefe, derrote o Dinolfos.","Abra o baú e pegue o Hero's Bow."],tip:"Com o arco você abre o Swamp Shooting Gallery e o Town Shooting Gallery."},
-  {id:"q2",ms:"➶",n:"Large Quiver",pt:"40 flechas",loc:"Town Shooting Gallery, East Clock Town",req:["Hero's Bow"],fx:"Aumenta para 40 flechas.",
+  {id:"q2",shot:"w078",ms:"➶",n:"Large Quiver",pt:"40 flechas",loc:"Town Shooting Gallery, East Clock Town",req:["Hero's Bow"],fx:"Aumenta para 40 flechas.",
    how:"Faça 40 pontos ou mais no Town Shooting Gallery.",steps:["Entre no Town Shooting Gallery em East Clock Town.","Pague e acerte os Octoroks vermelhos sem acertar os azuis.","Faça 40 pontos ou mais."],tip:"Com 50 pontos (perfeito) você ganha um pedaço de coração."},
-  {id:"q3",ms:"➶",n:"Largest Quiver",pt:"50 flechas",loc:"Swamp Shooting Gallery",req:["Large Quiver"],fx:"Aumenta para 50 flechas.",
+  {id:"q3",shot:"w077",ms:"➶",n:"Largest Quiver",pt:"50 flechas",loc:"Swamp Shooting Gallery",req:["Large Quiver"],fx:"Aumenta para 50 flechas.",
    how:"Faça 2.000 pontos ou mais no Swamp Shooting Gallery.",steps:["Vá ao Swamp Shooting Gallery, no caminho para o Southern Swamp.","Atire nos Deku Scrubs e lobos que aparecem.","Faça 2.000 pontos ou mais."],tip:"Com 2.180 pontos você ganha um pedaço de coração."}
  ]},
  {t:"Espadas e escudos", items:[
-  {id:"s1",ms:"⚔",n:"Razor Sword",pt:"Dura 100 golpes",loc:"Mountain Smithy",req:["100 rupees","Água quente ou Fire Arrow"],fx:"Espada mais forte. Volta a ser a Kokiri Sword depois de 100 golpes ou ao tocar a Song of Time.",
+  {id:"s1",shot:"w138",ms:"⚔",n:"Razor Sword",pt:"Dura 100 golpes",loc:"Mountain Smithy",req:["100 rupees","Água quente ou Fire Arrow"],fx:"Espada mais forte. Volta a ser a Kokiri Sword depois de 100 golpes ou ao tocar a Song of Time.",
    how:"Ferreiro da Mountain Village.",steps:["Na Mountain Village, entre na ferraria.","Descongele a forja com Hot Spring Water ou uma Fire Arrow.","Pague 100 rupees e deixe a espada no dia 1 ou 2.","Volte no dia seguinte para pegar a Razor Sword."],tip:"Não deixe a espada no dia 3, porque ela não fica pronta a tempo."},
-  {id:"s2",ms:"⚔",n:"Gilded Sword",pt:"Permanente",loc:"Mountain Smithy",req:["Razor Sword","Gold Dust"],fx:"A melhor espada comum. Não quebra e fica entre os ciclos.",
+  {id:"s2",shot:"w138",ms:"⚔",n:"Gilded Sword",pt:"Permanente",loc:"Mountain Smithy",req:["Razor Sword","Gold Dust"],fx:"A melhor espada comum. Não quebra e fica entre os ciclos.",
    how:"Leve a Razor Sword e o Gold Dust ao ferreiro.",steps:["Ganhe o Gold Dust na corrida Goron.","Com a Razor Sword, volte ao ferreiro.","Entregue o Gold Dust e deixe a espada.","Volte no dia seguinte e pegue a Gilded Sword."],tip:"Faça tudo no mesmo ciclo, porque a Razor Sword some ao voltar ao dia 1."},
-  {id:"s3",ms:"⚔",n:"Great Fairy's Sword",pt:"Item de botão C",loc:"Fonte de Ikana",req:["15 fadas do Stone Tower Temple"],fx:"Espada enorme e muito forte, usada pelo botão C.",
+  {id:"s3",shot:"w304",ms:"⚔",n:"Great Fairy's Sword",pt:"Item de botão C",loc:"Fonte de Ikana",req:["15 fadas do Stone Tower Temple"],fx:"Espada enorme e muito forte, usada pelo botão C.",
    how:"Junte as 15 fadas do Stone Tower Temple.",steps:["Coloque a Great Fairy's Mask para achar as fadas.","Junte as 15 fadas perdidas do Stone Tower Temple no mesmo ciclo.","Leve-as à fonte das fadas em Ikana Canyon."],tip:"Algumas fadas só aparecem com o templo invertido."},
-  {id:"s4",ms:"◈",n:"Mirror Shield",pt:"Reflete luz",loc:"Beneath the Well, Ikana Canyon",req:["Gibdo Mask","Itens de troca para os Gibdos"],fx:"Reflete luz para derreter blocos de sol e ilumina interruptores.",
+  {id:"s4",shot:"w238",ms:"◈",n:"Mirror Shield",pt:"Reflete luz",loc:"Beneath the Well, Ikana Canyon",req:["Gibdo Mask","Itens de troca para os Gibdos"],fx:"Reflete luz para derreter blocos de sol e ilumina interruptores.",
    how:"Beneath the Well, em Ikana Canyon.",steps:["Com a Gibdo Mask, entre no poço em Ikana Canyon.","Dê aos Gibdos o que cada um pede (peixe, insetos, leite, nozes, bombas e outros).","Chegue ao fundo do poço e abra o baú do Mirror Shield."],tip:"Leve frascos com vários itens antes de entrar, porque cada Gibdo pede uma coisa."}
  ]},
  {t:"Grandes Fadas", items:[
-  {id:"f1",img:"m08",n:"Magia",pt:"Clock Town",loc:"North Clock Town",req:["Forma Deku"],fx:"Libera a barra de magia.",
+  {id:"f1",shot:"w007",img:"m08",n:"Magia",pt:"Clock Town",loc:"North Clock Town",req:["Forma Deku"],fx:"Libera a barra de magia.",
    how:"Leve a fada de Clock Town na forma Deku.",steps:["Como Deku, pegue a fada perdida no Laundry Pool.","Leve à fonte em North Clock Town.","A Great Fairy dá a magia."],tip:"Como humano, a mesma fada dá a Great Fairy's Mask."},
-  {id:"f2",img:"m08",n:"Spin Attack melhorado",pt:"Woodfall",loc:"Fonte de Woodfall",req:["15 fadas do Woodfall Temple"],fx:"O ataque giratório fica mais forte e mais longo.",
+  {id:"f2",shot:"w068",img:"m08",n:"Spin Attack melhorado",pt:"Woodfall",loc:"Fonte de Woodfall",req:["15 fadas do Woodfall Temple"],fx:"O ataque giratório fica mais forte e mais longo.",
    how:"Junte as 15 fadas do Woodfall Temple.",steps:["Pegue as 15 fadas perdidas do Woodfall Temple num mesmo ciclo.","Leve à fonte das fadas em Woodfall."],tip:"A Great Fairy's Mask atrai as fadas que estão longe."},
-  {id:"f3",img:"m08",n:"Magia dobrada",pt:"Snowhead",loc:"Fonte de Snowhead",req:["15 fadas do Snowhead Temple"],fx:"A barra de magia dobra de tamanho.",
+  {id:"f3",shot:"w142",img:"m08",n:"Magia dobrada",pt:"Snowhead",loc:"Fonte de Snowhead",req:["15 fadas do Snowhead Temple"],fx:"A barra de magia dobra de tamanho.",
    how:"Junte as 15 fadas do Snowhead Temple.",steps:["Pegue as 15 fadas perdidas do Snowhead Temple num mesmo ciclo.","Leve à fonte das fadas em Snowhead."],tip:"Algumas fadas estão dentro de blocos de gelo: use Fire Arrows."},
-  {id:"f4",img:"m08",n:"Defesa dobrada",pt:"Great Bay",loc:"Fonte de Zora Cape",req:["15 fadas do Great Bay Temple"],fx:"Você leva metade do dano.",
+  {id:"f4",shot:"w224",img:"m08",n:"Defesa dobrada",pt:"Great Bay",loc:"Fonte de Zora Cape",req:["15 fadas do Great Bay Temple"],fx:"Você leva metade do dano.",
    how:"Junte as 15 fadas do Great Bay Temple.",steps:["Pegue as 15 fadas perdidas do Great Bay Temple num mesmo ciclo.","Leve à fonte das fadas na Zora Cape."],tip:"Os corações ficam com borda branca quando a defesa está ativa."}
  ]},
  {t:"Itens importantes", items:[
-  {id:"k1",ms:"▣",n:"Pictograph Box",pt:"Câmera",loc:"Swamp Tourist Center",req:["Koume salva"],fx:"Tira fotos para trocas e concursos.",how:"Depois de salvar a Koume, no Tourist Center.",steps:["Salve a Koume com a Red Potion (Frasco 1).","Volte ao Tourist Center no Southern Swamp.","Fale com o guia e ganhe a Pictograph Box."],tip:"A foto de uma pirata Gerudo vale um cavalo-marinho com o pescador."},
-  {id:"k2",ms:"◎",n:"Lens of Truth",pt:"Vê o invisível",loc:"Lone Peak Shrine, Mountain Village",req:["Magia"],fx:"Mostra objetos, caminhos e pessoas invisíveis. Gasta magia.",how:"Siga a coruja pelas plataformas invisíveis.",steps:["Em Mountain Village, vá até o abismo perto da coruja.","Siga as penas que a coruja deixa caindo: elas marcam as plataformas invisíveis.","Entre no Lone Peak Shrine e abra o baú."],tip:"É necessária para ver o fantasma do Darmani."},
-  {id:"k3",ms:"➶",n:"Fire Arrow",pt:"Flecha de fogo",loc:"Snowhead Temple",req:["Hero's Bow"],fx:"Derrete gelo e acende tochas.",how:"Snowhead Temple, ao vencer o Wizzrobe.",steps:["Avance pelo Snowhead Temple.","Derrote o Wizzrobe na sala do subchefe.","Abra o baú."],tip:"Também descongela a forja do ferreiro."},
-  {id:"k4",ms:"◉",n:"Powder Keg",pt:"Barril de pólvora",loc:"Goron Village",req:["Goron Mask"],fx:"Explosão enorme. Só os Gorons carregam.",how:"Passe no teste do Medigoron.",steps:["Como Goron, fale com o Medigoron na Goron Village.","Aceite o teste e leve o barril até a pedra perto da Goron Racetrack antes que exploda.","Volte e ganhe o direito de comprar Powder Kegs."],tip:"Abre a Milk Road para o Romani Ranch."},
-  {id:"k5",ms:"⤳",n:"Hookshot",pt:"Gancho",loc:"Pirates' Fortress",req:["Zora Mask"],fx:"Puxa Link até alvos de madeira e baús.",how:"Na sala central do Pirates' Fortress.",steps:["Entre no Pirates' Fortress pela água como Zora.","Chegue à sala central sem ser pego (a Stone Mask ajuda).","Derrote a pirata guarda e abra o baú."],tip:"Com ele você sobe na Zora Cape e alcança vários pedaços de coração."},
-  {id:"k6",ms:"➶",n:"Ice Arrow",pt:"Flecha de gelo",loc:"Great Bay Temple",req:["Hero's Bow"],fx:"Congela inimigos e cria plataformas na água.",how:"Great Bay Temple, ao vencer o Wart.",steps:["Avance pelo Great Bay Temple.","Derrote o Wart, o olho gigante cercado de bolhas.","Abra o baú."],tip:"Necessária para subir em Ikana Canyon."},
-  {id:"k7",ms:"➶",n:"Light Arrow",pt:"Flecha de luz",loc:"Stone Tower Temple",req:["Hero's Bow"],fx:"Ativa emblemas do sol e vira o Stone Tower Temple.",how:"Stone Tower Temple, ao vencer o Garo Master.",steps:["Avance pelo Stone Tower Temple.","Derrote o Garo Master.","Abra o baú."],tip:"Atire no emblema vermelho do lado de fora para inverter a torre."},
-  {id:"k8",ms:"✎",n:"Bombers' Notebook",pt:"Caderno de horários",loc:"North Clock Town",req:["Nenhum"],fx:"Registra as pessoas de Termina e os horários dos eventos.",how:"Com o Jim, chefe dos Bombers.",steps:["Volte à forma humana.","Em North Clock Town, fale com o Jim.","Aceite o caderno."],tip:"Consulte o caderno para não perder horários da quest da Anju."}
+  {id:"k1",shot:"w032",ms:"▣",n:"Pictograph Box",pt:"Câmera",loc:"Swamp Tourist Center",req:["Koume salva"],fx:"Tira fotos para trocas e concursos.",how:"Depois de salvar a Koume, no Tourist Center.",steps:["Salve a Koume com a Red Potion (Frasco 1).","Volte ao Tourist Center no Southern Swamp.","Fale com o guia e ganhe a Pictograph Box."],tip:"A foto de uma pirata Gerudo vale um cavalo-marinho com o pescador."},
+  {id:"k2",shot:"w084",ms:"◎",n:"Lens of Truth",pt:"Vê o invisível",loc:"Lone Peak Shrine, Mountain Village",req:["Magia"],fx:"Mostra objetos, caminhos e pessoas invisíveis. Gasta magia.",how:"Siga a coruja pelas plataformas invisíveis.",steps:["Em Mountain Village, vá até o abismo perto da coruja.","Siga as penas que a coruja deixa caindo: elas marcam as plataformas invisíveis.","Entre no Lone Peak Shrine e abra o baú."],tip:"É necessária para ver o fantasma do Darmani."},
+  {id:"k3",shot:"w129",ms:"➶",n:"Fire Arrow",pt:"Flecha de fogo",loc:"Snowhead Temple",req:["Hero's Bow"],fx:"Derrete gelo e acende tochas.",how:"Snowhead Temple, ao vencer o Wizzrobe.",steps:["Avance pelo Snowhead Temple.","Derrote o Wizzrobe na sala do subchefe.","Abra o baú."],tip:"Também descongela a forja do ferreiro."},
+  {id:"k4",shot:"w140",ms:"◉",n:"Powder Keg",pt:"Barril de pólvora",loc:"Goron Village",req:["Goron Mask"],fx:"Explosão enorme. Só os Gorons carregam.",how:"Passe no teste do Medigoron.",steps:["Como Goron, fale com o Medigoron na Goron Village.","Aceite o teste e leve o barril até a pedra perto da Goron Racetrack antes que exploda.","Volte e ganhe o direito de comprar Powder Kegs."],tip:"Abre a Milk Road para o Romani Ranch."},
+  {id:"k5",shot:"w185",ms:"⤳",n:"Hookshot",pt:"Gancho",loc:"Pirates' Fortress",req:["Zora Mask"],fx:"Puxa Link até alvos de madeira e baús.",how:"Na sala central do Pirates' Fortress.",steps:["Entre no Pirates' Fortress pela água como Zora.","Chegue à sala central sem ser pego (a Stone Mask ajuda).","Derrote a pirata guarda e abra o baú."],tip:"Com ele você sobe na Zora Cape e alcança vários pedaços de coração."},
+  {id:"k6",shot:"w211",ms:"➶",n:"Ice Arrow",pt:"Flecha de gelo",loc:"Great Bay Temple",req:["Hero's Bow"],fx:"Congela inimigos e cria plataformas na água.",how:"Great Bay Temple, ao vencer o Wart.",steps:["Avance pelo Great Bay Temple.","Derrote o Wart, o olho gigante cercado de bolhas.","Abra o baú."],tip:"Necessária para subir em Ikana Canyon."},
+  {id:"k7",shot:"w288",ms:"➶",n:"Light Arrow",pt:"Flecha de luz",loc:"Stone Tower Temple",req:["Hero's Bow"],fx:"Ativa emblemas do sol e vira o Stone Tower Temple.",how:"Stone Tower Temple, ao vencer o Garo Master.",steps:["Avance pelo Stone Tower Temple.","Derrote o Garo Master.","Abra o baú."],tip:"Atire no emblema vermelho do lado de fora para inverter a torre."},
+  {id:"k8",shot:"w024",ms:"✎",n:"Bombers' Notebook",pt:"Caderno de horários",loc:"North Clock Town",req:["Nenhum"],fx:"Registra as pessoas de Termina e os horários dos eventos.",how:"Com o Jim, chefe dos Bombers.",steps:["Volte à forma humana.","Em North Clock Town, fale com o Jim.","Aceite o caderno."],tip:"Consulte o caderno para não perder horários da quest da Anju."}
  ]},
  {t:"Canções", items:[
   {id:"c1",shot:"c01",ms:"♪",n:"Song of Time",pt:"Canção do Tempo",notes:"RADRAD",loc:"Clock Tower",req:["Ocarina of Time"],fx:"Volta ao amanhecer do dia 1.",how:"Ao recuperar a Ocarina, lembrando da Zelda.",steps:["No topo da Clock Tower, recupere a Ocarina do Skull Kid.","Link lembra da Zelda ensinando a canção."],tip:"Antes de tocar, deposite as rupees no banco."},

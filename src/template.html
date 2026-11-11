@@ -73,6 +73,8 @@ section.view{display:grid;gap:22px}
 .chip.reg{color:var(--moon);border-color:#f0a23a44;background:var(--moon-soft)}
 .thumb{width:64px;height:64px;border-radius:12px;background:radial-gradient(circle,#2f2648,#1a1528);display:grid;place-items:center;flex:none;border:1px solid var(--line)}
 .thumb img{width:54px;height:54px;object-fit:contain}
+.thumb.photo{overflow:hidden;padding:0}
+.thumb.photo img,.hero .thumb.photo img{width:100%;height:100%;object-fit:cover}
 .thumb.glyph{font-family:var(--display);font-weight:800;color:var(--moon);font-size:1.5rem;line-height:1}
 .num{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-variant-numeric:tabular-nums;background:var(--night-3);color:var(--heart);font-size:.9rem;border:1px solid var(--line)}
 .box{width:52px;align-self:stretch;display:grid;place-items:center;background:none;border:0;cursor:pointer;padding:0;color:inherit}
@@ -258,6 +260,7 @@ const BY_ID=Object.fromEntries(ENTRIES.map(e=>[e.id,e]));
 
 function lead(e,big){
   if(e.img&&IMG[e.img])return `<div class="thumb"><img src="${IMG[e.img]}" alt="" loading="lazy"></div>`;
+  if(e.shot&&IMG[e.shot])return `<div class="thumb photo"><img src="${IMG[e.shot]}" alt="" loading="lazy"></div>`;
   return `<div class="thumb glyph" aria-hidden="true">${esc(e.ms||"•")}</div>`;
 }
 function linkCard(e,chips){
