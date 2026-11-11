@@ -60,7 +60,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .desk-only{display:none}
 
 /* navegação: embaixo no celular */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(4,1fr);background:var(--panel);border-top:1px solid var(--line);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;text-decoration:none;color:var(--muted);font-family:var(--label);font-weight:700;font-size:.78rem;border-radius:10px;position:relative}
 nav.tabs a img{width:30px;height:30px;object-fit:contain;filter:grayscale(.85) brightness(.75);transition:filter .15s}
@@ -262,6 +262,50 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
 .msg{color:var(--magic);min-height:1.2em;margin:0;font-size:.9rem}
 .sub{color:var(--muted);font-size:.85rem}
 
+/* enciclopédia */
+.enc-tools{display:grid;gap:12px}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px 11px 42px}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:2px solid var(--gold);outline-offset:1px}
+.search svg{position:absolute;left:13px;top:50%;width:18px;height:18px;transform:translateY(-50%);stroke:var(--muted);stroke-width:2.2;fill:none}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats button{flex:none;font:inherit;font-family:var(--label);font-weight:700;font-size:.9rem;color:var(--soft);background:transparent;border:1px solid var(--line);border-radius:99px;padding:6px 12px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.cats button small{color:var(--muted);font-variant-numeric:tabular-nums}
+.cats button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#24180f}
+.cats button[aria-pressed="true"] small{color:#24180f99}
+.etiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.etile{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:12px 6px 10px;border-radius:10px;background:var(--panel);border:1px solid var(--line);text-decoration:none;min-width:0}
+.etile:hover{background:var(--panel-2)}
+.etile .fig{width:72px;height:72px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 50% 40%,#3a2b1f,#1a130e 72%);border:1px solid var(--line);overflow:hidden}
+.etile .fig img{width:84%;height:84%;object-fit:contain}
+.etile .fig.ph img{width:100%;height:100%;object-fit:cover}
+.etile .name{font-weight:800;font-size:.86rem;line-height:1.15;overflow-wrap:anywhere;text-wrap:balance}
+.etile .pt{font-size:.74rem;color:var(--muted);line-height:1.2;overflow-wrap:anywhere}
+.etile .cat{font-family:var(--label);font-size:.7rem;color:var(--gold);font-weight:700}
+.ptiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px}
+.ptile{display:grid;border-radius:10px;overflow:hidden;background:var(--panel);border:1px solid var(--line);text-decoration:none}
+.ptile img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.ptile span{padding:8px 10px 10px;display:grid;gap:1px}
+.ptile b{font-size:.92rem;line-height:1.2}
+.ptile small{color:var(--muted);font-size:.78rem}
+.etile.sel,.ptile.sel{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.empty-msg{color:var(--muted);padding:12px 0}
+.showcase{display:grid;place-items:center;border-radius:12px;background:radial-gradient(ellipse at 50% 45%,#3a2b1f,#120d0a 75%);border:1px solid var(--line);aspect-ratio:4/3;max-width:100%;overflow:hidden}
+.showcase img{max-width:78%;max-height:86%;object-fit:contain;filter:drop-shadow(0 12px 20px #000c)}
+.tatl{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:10px;background:#5b9cc214;border:1px solid #5b9cc244}
+.tatl img{width:44px;height:44px;object-fit:contain}
+.tatl p{margin:0;font-style:italic;color:var(--ink)}
+.tatl small{display:block;font-family:var(--label);font-style:normal;color:var(--sky);font-weight:700;margin-bottom:2px}
+.prose{display:grid;gap:10px}
+.prose p{margin:0;max-width:70ch;color:var(--soft)}
+.see{display:flex;flex-wrap:wrap;gap:6px}
+.see a{display:inline-flex;align-items:center;gap:6px;padding:3px 12px 3px 3px;border-radius:99px;border:1px solid var(--line);background:var(--panel);text-decoration:none;font-weight:800;font-size:.85rem}
+.see img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#1a130e}
+.see img.c{object-fit:contain}
+@media (min-width:600px){.etiles{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}}
+@media (min-width:900px){.cats{flex-wrap:wrap;overflow:visible}}
+
 /* painel lateral (telas largas) */
 .idle{display:grid;gap:18px}
 .idle-meters{display:grid;gap:12px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
@@ -333,6 +377,7 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
       <a href="#mascaras" data-view="mascaras"><img id="nav-i-mascaras" alt=""><span>Máscaras</span><span class="cnt" id="s-masks"></span></a>
       <a href="#coracoes" data-view="coracoes"><img id="nav-i-coracoes" alt=""><span>Corações</span><span class="cnt" id="s-hearts"></span></a>
       <a href="#itens" data-view="itens"><img id="nav-i-itens" alt=""><span>Itens</span><span class="cnt" id="s-items"></span></a>
+      <a href="#termina" data-view="termina"><img src="enc/tatl.webp" alt=""><span>Termina</span><span class="cnt" id="s-enc"></span></a>
       <a href="#guia" data-view="guia"><img id="nav-i-guia" alt=""><span>Guia</span></a>
     </nav>
 
@@ -362,6 +407,7 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
       <section class="view" id="v-mascaras"></section>
       <section class="view" id="v-coracoes" hidden></section>
       <section class="view" id="v-itens" hidden></section>
+      <section class="view" id="v-termina" hidden></section>
       <section class="view" id="v-guia" hidden></section>
       <section class="view" id="v-detalhe" hidden></section>
       <footer class="credits">Feito por fã, sem fins lucrativos. Imagens e informações: <a href="https://zelda.com.br/mm" target="_blank" rel="noopener">Hyrule Legends</a>, <a href="https://www.thonky.com/zelda-majoras-mask/pieces-of-heart" target="_blank" rel="noopener">Thonky</a> e <a href="https://zeldawiki.wiki" target="_blank" rel="noopener">Zelda Wiki</a>. Relógio de Clock Town: arte de Otaku Crafts. The Legend of Zelda é marca da Nintendo. Versão de referência: N64.</footer>
@@ -374,6 +420,7 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
 const IMG = __IMGS__;
 __DATA__
 __HEARTS__
+__ENC__
 </script>
 <script>
 /* imagens embutidas viram blob: URLs curtas, para o HTML gerado ficar leve */
@@ -629,26 +676,117 @@ function renderSide(){
   $("s-masks").textContent=MASK_IDS.filter(has).length+"/24";
   $("s-hearts").textContent=HEARTS.filter((_,i)=>has("h"+(i+1))).length+"/52";
   $("s-items").textContent=ITEM_IDS.filter(has).length+"/"+ITEM_IDS.length;
+  $("s-enc").textContent=ENC.length;
   $("wall-side").innerHTML=wallHtml();
   const d=heartsData();
   $("hearts-side").innerHTML=d.s;
   $("hearts-side-txt").textContent=`${d.total} corações · ${d.pieces}/52 pedaços`;
 }
-function renderAll(){renderMasks();renderHearts();renderItems();renderGuide();renderSide()}
+function renderAll(){renderMasks();renderHearts();renderItems();renderTermina();renderGuide();renderSide()}
+
+/* ---------- enciclopédia ---------- */
+const ENC_CATS=[
+ {k:"npc",t:"NPCs",s:"Personagem",list:ENC_NPC},
+ {k:"inimigos",t:"Inimigos",s:"Inimigo",list:ENC_ENEMY},
+ {k:"mini",t:"Mini-chefes",s:"Mini-chefe",list:ENC_MINI},
+ {k:"chefes",t:"Chefes",s:"Chefe",list:ENC_BOSS},
+ {k:"objetos",t:"Objetos",s:"Objeto",list:ENC_OBJ},
+ {k:"locais",t:"Locais",s:"Local",list:ENC_LOC,photo:1},
+ {k:"dungeons",t:"Dungeons",s:"Dungeon",list:ENC_DUN,photo:1}];
+const ENC=[];ENC_CATS.forEach(c=>c.list.forEach(e=>ENC.push({...e,cat:c})));
+const ENC_BY=Object.fromEntries(ENC.map(e=>[e.id,e]));
+const ENC_PH=new Set(["sakon","giants","medigoron","guru-guru","shikashi"]);
+const isPhoto=e=>e.cat.photo||ENC_PH.has(e.id);
+const eimg=e=>`enc/${e.id}.webp`;
+let encCat="npc", encQ="";
+const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function encTile(e,showCat){
+  if(e.cat.photo&&!showCat)return `<a class="ptile" data-ecard="${e.id}" href="#e-${e.id}"><img src="${eimg(e)}" alt="" loading="lazy"><span><b>${esc(e.n)}</b><small>${esc(e.pt||"")}</small></span></a>`;
+  return `<a class="etile" data-ecard="${e.id}" href="#e-${e.id}"><span class="fig${isPhoto(e)?" ph":""}"><img src="${eimg(e)}" alt="" loading="lazy"></span><span class="name">${esc(e.n)}</span>${showCat?`<span class="cat">${e.cat.s}</span>`:e.pt?`<span class="pt">${esc(e.pt)}</span>`:""}</a>`;
+}
+function encResults(){
+  const q=norm(encQ.trim());
+  let list,showCat=false;
+  if(q){list=ENC.filter(e=>norm(e.n+" "+(e.pt||"")+" "+(e.where||"")).includes(q));showCat=true}
+  else list=ENC_CATS.find(c=>c.k===encCat).list.map(x=>ENC_BY[x.id]);
+  const photo=!showCat&&ENC_CATS.find(c=>c.k===encCat).photo;
+  $("enc-results").className=photo?"ptiles":"etiles";
+  $("enc-results").innerHTML=list.length?list.map(e=>encTile(e,showCat)).join(""):`<p class="empty-msg">Nada encontrado para “${esc(encQ)}”.</p>`;
+  $("enc-count").textContent=q?`${list.length} resultado${list.length===1?"":"s"}`:"";
+  document.querySelectorAll("#enc-cats button").forEach(b=>b.setAttribute("aria-pressed",String(!q&&b.dataset.cat===encCat)));
+  markEncSel();
+}
+function markEncSel(){
+  document.querySelectorAll(".etile.sel,.ptile.sel").forEach(t=>t.classList.remove("sel"));
+  if(split&&current.startsWith("e-"))document.querySelector(`[data-ecard="${CSS.escape(current.slice(2))}"]`)?.classList.add("sel");
+}
+function renderTermina(){
+  $("v-termina").innerHTML=`<header class="summary">
+    <div><p class="eyebrow">Enciclopédia</p><h2 class="title">Quem é quem em Termina</h2>
+    <p class="lede">Personagens, inimigos, chefes, objetos, lugares e dungeons. Toque em qualquer um para ver a ficha completa.</p></div>
+  </header>
+  <div class="enc-tools">
+    <label class="search"><span class="sr" hidden>Buscar</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="enc-q" type="search" placeholder="Buscar em toda a enciclopédia" autocomplete="off" value="${esc(encQ)}"></label>
+    <div class="cats" id="enc-cats" role="group" aria-label="Categorias">${ENC_CATS.map(c=>`<button type="button" data-cat="${c.k}">${c.t}<small>${c.list.length}</small></button>`).join("")}</div>
+    <div class="sub" id="enc-count" aria-live="polite"></div>
+  </div>
+  <div id="enc-results"></div>`;
+  encResults();
+}
+function seeAlso(ids){
+  const out=(ids||[]).map(id=>{
+    const e=ENC_BY[id]; if(e)return `<a href="#e-${id}"><img class="${isPhoto(e)?"":"c"}" src="${eimg(e)}" alt="">${esc(e.n)}</a>`;
+    const b=BY_ID[id]; if(b){const im=b.img&&IMG[b.img]?IMG[b.img]:b.shot&&IMG[b.shot]?IMG[b.shot]:"";return `<a href="#d-${id}">${im?`<img class="c" src="${im}" alt="">`:""}${esc(b.n)}</a>`}
+    return "";
+  }).join("");
+  return out?`<div><h3 class="qh" style="font-family:var(--display);font-size:1.15rem;margin:0 0 10px">Veja também</h3><div class="see">${out}</div></div>`:"";
+}
+function encDetailHtml(id){
+  const e=ENC_BY[id], c=e.cat, list=c.list, i=list.findIndex(x=>x.id===id), prev=list[i-1], next=list[i+1];
+  const fig=isPhoto(e)?`<figure class="shot"><img src="${eimg(e)}" alt="${esc(e.n)}"></figure>`:`<div class="showcase"><img src="${eimg(e)}" alt="${esc(e.n)}"></div>`;
+  const facts=[];
+  if(e.where)facts.push(["Onde",esc(e.where)]);
+  if(e.req)facts.push(["Requisitos",`<div class="reqs">${e.req.map(r=>`<span class="chip">${esc(r)}</span>`).join("")}</div>`]);
+  if(e.get)facts.push(["O que se ganha",`<div class="reqs">${e.get.map(r=>`<span class="chip reg">${esc(r)}</span>`).join("")}</div>`]);
+  if(e.mini)facts.push(["Mini-chefe",esc(e.mini)]);
+  if(e.boss)facts.push(["Chefe",esc(e.boss)]);
+  if(e.fairies)facts.push(["Fadas perdidas",e.fairies+""]);
+  if(e.atk)facts.push(["Ataques",esc(e.atk)]);
+  const paras=[...(e.d||[]),...(e.str?[e.str]:[])];
+  return `<div class="detail">
+    <div class="crumbs"><a class="back" href="#termina">${BACK}${split?"Fechar":"Termina"}</a><span class="pos">${c.t} · ${i+1} de ${list.length}</span></div>
+    <div><p class="eyebrow">${c.s}</p><h2 class="title">${esc(e.n)}</h2>${e.pt?`<p class="lede" style="margin-top:2px">${esc(e.pt)}</p>`:""}</div>
+    <div class="cols">${fig}${facts.length?`<div class="facts"><dl>${facts.map(f=>`<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join("")}</dl></div>`:""}</div>
+    ${paras.length?`<div class="prose">${e.str?`<h3 style="font-family:var(--display);font-size:1.15rem;margin:0">${e.atk?"Como vencer":"Sobre"}</h3>`:""}${paras.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
+    ${e.tatl?`<div class="tatl"><img src="enc/tatl.webp" alt=""><p><small>Tatl diz</small>“${esc(e.tatl)}”</p></div>`:""}
+    ${e.tips?`<div class="tipbox"><h3>Dicas</h3><ul class="after">${e.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
+    ${seeAlso(e.rel)}
+    <div class="pager">${prev?`<a href="#e-${prev.id}"><small>‹ Anterior</small><b>${esc(prev.n)}</b></a>`:'<span class="empty"></span>'}${next?`<a class="next" href="#e-${next.id}"><small>Próximo ›</small><b>${esc(next.n)}</b></a>`:'<span class="empty"></span>'}</div>
+  </div>`;
+}
+function encIdleHtml(){
+  return `<div class="idle">
+    <div><p class="eyebrow">Dungeons</p><p class="lede" style="margin-top:4px">Os templos e lugares com chefes ou desafios grandes:</p></div>
+    <ul class="next-list">${ENC_DUN.map(d=>`<li><a href="#e-${d.id}"><div class="thumb photo"><img src="enc/${d.id}.webp" alt="" loading="lazy"></div><span><b>${esc(d.n)}</b><small>${esc(d.boss?"Chefe: "+d.boss:d.where)}</small></span></a></li>`).join("")}</ul>
+  </div>`;
+}
+document.addEventListener("input",e=>{if(e.target.id==="enc-q"){encQ=e.target.value;encResults()}});
 
 /* ---------- rotas ---------- */
-const VIEWS=["mascaras","coracoes","itens","guia"];
+const VIEWS=["mascaras","coracoes","itens","termina","guia"];
+const tabOf=h=>h==="missao-anju"?"mascaras":h.startsWith("d-")?BY_ID[h.slice(2)]?.kind:h.startsWith("e-")?"termina":h;
+const isDet=h=>h==="missao-anju"||h.startsWith("d-")||h.startsWith("e-");
 const wideMQ=matchMedia("(min-width:1240px)");
 const scrollMem={};
 let current="mascaras", split=false;
 function paint(){
-  const h=current, isQuest=h==="missao-anju", isDetail=h.startsWith("d-")||isQuest;
-  const tab=isQuest?"mascaras":h.startsWith("d-")?BY_ID[h.slice(2)].kind:h;
-  split=wideMQ.matches&&(tab==="mascaras"||tab==="itens");
+  const h=current, isQuest=h==="missao-anju", isDetail=isDet(h);
+  const tab=tabOf(h);
+  split=wideMQ.matches&&(tab==="mascaras"||tab==="itens"||tab==="termina");
   document.body.classList.toggle("split",split);
-  const body=isQuest?questHtml():h.startsWith("d-")?detailHtml(h.slice(2)):null;
+  const body=isQuest?questHtml():h.startsWith("d-")?detailHtml(h.slice(2)):h.startsWith("e-")?encDetailHtml(h.slice(2)):null;
   if(split){
-    $("pane").innerHTML=body||idleHtml(tab);
+    $("pane").innerHTML=body||(tab==="termina"?encIdleHtml():idleHtml(tab));
     VIEWS.forEach(x=>$("v-"+x).hidden=x!==tab);
     $("v-detalhe").hidden=true;
   }else{
@@ -659,6 +797,7 @@ function paint(){
   }
   document.querySelectorAll(".tile.sel").forEach(t=>t.classList.remove("sel"));
   if(split&&h.startsWith("d-"))document.querySelector(`.tile[data-card="${CSS.escape(h.slice(2))}"]`)?.classList.add("sel");
+  markEncSel();
   document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.view===tab)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   return {isDetail,tab};
 }
@@ -666,11 +805,13 @@ function route(){
   const prev=current;
   scrollMem[prev]=window.scrollY;
   let h=location.hash.slice(1);
-  if(!(VIEWS.includes(h)||h==="missao-anju"||(h.startsWith("d-")&&BY_ID[h.slice(2)])))h="mascaras";
+  if(!(VIEWS.includes(h)||h==="missao-anju"||(h.startsWith("d-")&&BY_ID[h.slice(2)])||(h.startsWith("e-")&&ENC_BY[h.slice(2)])))h="mascaras";
+  if(h.startsWith("e-")&&!encQ)encCat=ENC_BY[h.slice(2)].cat.k;
   current=h;
   const {isDetail,tab}=paint();
-  const prevDetail=prev.startsWith("d-")||prev==="missao-anju";
-  if(split){ $("pane").scrollTop=0; const prevTab=prev==="missao-anju"?"mascaras":prev.startsWith("d-")?BY_ID[prev.slice(2)]?.kind:prev; if(prevTab!==tab)window.scrollTo(0,0); }
+  const prevDetail=isDet(prev);
+  if(tab==="termina"&&!isDetail||split&&tab==="termina")encResults();
+  if(split){ $("pane").scrollTop=0; if(tabOf(prev)!==tab)window.scrollTo(0,0); }
   else if(isDetail)window.scrollTo(0,0);
   else window.scrollTo(0,prevDetail?(scrollMem[h]||0):0);
 }
@@ -689,6 +830,7 @@ function toggle(id){
 document.addEventListener("click",e=>{
   const t=e.target.closest("[data-toggle]"); if(t){e.preventDefault();toggle(t.dataset.toggle);return}
   const r=e.target.closest("[data-region]"); if(r){region=r.dataset.region;renderHearts();return}
+  const cb=e.target.closest("[data-cat]"); if(cb){encCat=cb.dataset.cat;encQ="";const qi=$("enc-q");if(qi)qi.value="";encResults();return}
   const msg=$("msg");
   switch(e.target.id){
     case "b-copy":{

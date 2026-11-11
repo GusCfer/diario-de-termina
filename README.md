@@ -37,3 +37,15 @@ npx firebase-tools deploy --only hosting,firestore:rules
 Imagens das máscaras, frascos e canções e informações de apoio: [Hyrule Legends](https://zelda.com.br/mm). Ícones de itens do inventário: [Zelda Wiki](https://zeldawiki.wiki). Lista de pedaços de coração baseada no guia do [Thonky](https://www.thonky.com/zelda-majoras-mask/pieces-of-heart). Ícone do relógio de Clock Town: arte de Otaku Crafts.
 
 Projeto de fã, sem fins lucrativos. The Legend of Zelda e Majora's Mask são marcas da Nintendo.
+
+## Enciclopédia
+
+A aba **Termina** reúne NPCs, inimigos, mini-chefes, chefes, objetos, locais e dungeons.
+
+```
+src/enc.js            NPCs, objetos, locais e dungeons (texto próprio)
+tools/enc_src.json    texto de inimigos e chefes extraído dos guias do Hyrule Legends
+tools/enc_auto.py     gera src/enc_auto.js a partir de tools/enc_src.json
+tools/enc_check.js    valida ids e referências e lista as imagens (node tools/enc_check.js .)
+tools/enc_fetch.py    baixa e converte as imagens para public/enc/<id>.webp
+```

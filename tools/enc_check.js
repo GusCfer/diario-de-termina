@@ -1,0 +1,12 @@
+const fs=require('fs');const R=process.argv[2];
+const code=['data.js','enc.js','enc_auto.js'].map(f=>fs.readFileSync(R+'/src/'+f,'utf8')).join('\n');
+const r=new Function(code+`;
+const all=[...ENC_NPC,...ENC_OBJ,...ENC_LOC,...ENC_DUN,...ENC_ENEMY,...ENC_MINI,...ENC_BOSS];
+const ids=new Set(all.map(e=>e.id));
+const base=new Set([...PHASES.flatMap(p=>p.items.map(i=>i.id)),...ITEM_GROUPS.flatMap(g=>g.items.map(i=>i.id))]);
+const dup=all.map(e=>e.id).filter((x,i,a)=>a.indexOf(x)!==i);
+const clash=[...ids].filter(i=>base.has(i));
+const bad=[];all.forEach(e=>(e.rel||[]).forEach(r=>{if(!ids.has(r)&&!base.has(r))bad.push(e.id+' -> '+r)}));
+return {n:all.length,dup,clash,bad,img:all.map(e=>({id:e.id,w:e.w||null,wt:e.wt||null,hl:e.hl||null}))}`)();
+fs.writeFileSync(R+'/tools/enc_images.json',JSON.stringify(r.img,null,0));
+delete r.img;console.log(JSON.stringify(r));
