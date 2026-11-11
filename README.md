@@ -34,6 +34,6 @@ npx firebase-tools deploy --only hosting,firestore:rules
 
 ## Créditos
 
-Imagens das máscaras, frascos e canções e informações de apoio: [Hyrule Legends](https://zelda.com.br/mm). Lista de pedaços de coração baseada no guia do [Thonky](https://www.thonky.com/zelda-majoras-mask/pieces-of-heart). Ícone do relógio de Clock Town: arte de Otaku Crafts.
+Imagens das máscaras, frascos e canções e informações de apoio: [Hyrule Legends](https://zelda.com.br/mm). Ícones de itens do inventário: [Zelda Wiki](https://zeldawiki.wiki). Lista de pedaços de coração baseada no guia do [Thonky](https://www.thonky.com/zelda-majoras-mask/pieces-of-heart). Ícone do relógio de Clock Town: arte de Otaku Crafts.
 
 Projeto de fã, sem fins lucrativos. The Legend of Zelda e Majora's Mask são marcas da Nintendo.

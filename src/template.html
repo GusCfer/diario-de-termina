@@ -76,6 +76,9 @@ section.view{display:grid;gap:22px}
 .thumb.photo{overflow:hidden;padding:0}
 .thumb.photo img,.hero .thumb.photo img{width:100%;height:100%;object-fit:cover}
 .thumb.glyph{font-family:var(--display);font-weight:800;color:var(--moon);font-size:1.5rem;line-height:1}
+.num.icon{position:relative;padding:6px}
+.num.icon img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.num.icon b{position:absolute;right:-6px;bottom:-6px;min-width:20px;height:20px;padding:0 4px;border-radius:99px;background:var(--night);border:1px solid var(--line);color:var(--ink);font-size:.68rem;display:grid;place-items:center}
 .num{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-variant-numeric:tabular-nums;background:var(--night-3);color:var(--heart);font-size:.9rem;border:1px solid var(--line)}
 .box{width:52px;align-self:stretch;display:grid;place-items:center;background:none;border:0;cursor:pointer;padding:0;color:inherit}
 .box span{width:28px;height:28px;border-radius:8px;border:2px solid #5b4d80;display:grid;place-items:center}
@@ -235,7 +238,7 @@ footer a{color:var(--muted)}
   <section class="view" id="v-guia" hidden></section>
   <section class="view" id="v-detalhe" hidden></section>
 </main>
-<footer class="wrap">Feito por fã, sem fins lucrativos. Imagens e informações de apoio: <a href="https://zelda.com.br/mm" target="_blank" rel="noopener">Hyrule Legends (zelda.com.br)</a> e <a href="https://www.thonky.com/zelda-majoras-mask/pieces-of-heart" target="_blank" rel="noopener">Thonky</a>. Ícone do relógio de Clock Town: arte de Otaku Crafts. The Legend of Zelda é marca da Nintendo. Versão de referência: N64.</footer>
+<footer class="wrap">Feito por fã, sem fins lucrativos. Imagens e informações de apoio: <a href="https://zelda.com.br/mm" target="_blank" rel="noopener">Hyrule Legends (zelda.com.br)</a> e <a href="https://www.thonky.com/zelda-majoras-mask/pieces-of-heart" target="_blank" rel="noopener">Thonky</a>. Ícones de itens: <a href="https://zeldawiki.wiki" target="_blank" rel="noopener">Zelda Wiki</a>. Ícone do relógio de Clock Town: arte de Otaku Crafts. The Legend of Zelda é marca da Nintendo. Versão de referência: N64.</footer>
 
 <script>
 const IMG = __IMGS__;
@@ -312,13 +315,12 @@ function heartsDisplay(){
 function renderHearts(){
   const d=heartsDisplay();
   const regions=["Todas",...new Set(HEARTS.map(h=>h[0])),"Pendentes"];
-  const hi=IMG.heart?`<div class="num" style="padding:4px"><img src="${IMG.heart}" alt="" style="width:100%;height:100%;object-fit:contain"></div>`:`<div class="num">♥</div>`;
   let h=`<div class="summary"><div class="row"><span>Pedaços de coração</span><span>${d.pieces} / 52</span></div>
   <div class="bar"><i style="width:${d.pieces/52*100}%"></i></div>
   <div class="hearts" aria-label="${d.total} corações">${d.s}</div>
   <p>${d.total} corações${d.rem?` e ${d.rem}/4 de um novo`:""}. Começa com 3, ganha 4 dos chefes e 13 dos pedaços (4 pedaços = 1 coração).</p></div>
   <div class="phase"><div class="phase-h"><h2>Heart Containers dos chefes</h2><span class="count">${d.cont}/4</span></div><div class="grid">`;
-  BOSSES.forEach(b=>{h+=toggleCard("c-"+b[0],`<div class="num" aria-hidden="true">♥</div>`,b[1],b[2],"Derrote o chefe e pegue o Heart Container.","")});
+  BOSSES.forEach(b=>{h+=toggleCard("c-"+b[0],`<div class="num icon" aria-hidden="true"><img src="${IMG.i_OoT_Heart_Container}" alt=""></div>`,b[1],b[2],"Derrote o chefe e pegue o Heart Container.","")});
   h+=`</div></div><div class="phase"><div class="phase-h"><h2>Os 52 pedaços</h2></div>
   <p class="phase-note">Na ordem em que você consegue pegar conforme avança. Toque no card para marcar. Filtre por região:</p>
   <div class="filters" role="group" aria-label="Filtrar por região">${regions.map(r=>`<button type="button" data-region="${esc(r)}" aria-pressed="${r===region}">${esc(r)}</button>`).join("")}</div><div class="grid">`;
@@ -326,7 +328,7 @@ function renderHearts(){
     const id="h"+(i+1);
     if(region==="Pendentes"&&has(id))return;
     if(region!=="Todas"&&region!=="Pendentes"&&x[0]!==region)return;
-    h+=toggleCard(id,`<div class="num" aria-hidden="true">${i+1}</div>`,`Pedaço ${i+1}`,"",x[1],`<span class="chip reg">${esc(x[0])}</span>`);
+    h+=toggleCard(id,`<div class="num icon" aria-hidden="true"><img src="${IMG.i_OoT_Piece_of_Heart}" alt=""><b>${i+1}</b></div>`,`Pedaço ${i+1}`,"",x[1],`<span class="chip reg">${esc(x[0])}</span>`);
   });
   h+=`</div></div>`;
   document.getElementById("v-coracoes").innerHTML=h;
