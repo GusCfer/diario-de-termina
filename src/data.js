@@ -108,23 +108,23 @@ const PHASES = [
    steps:["Toque a Song of Time e comece um ciclo novo.","Vá direto para a Ocean Spider House, na Great Bay Coast, ainda no dia 1.","Derrote as 30 Gold Skulltulas. Use o Hookshot, quebre os vasos e procure atrás de quadros e das máscaras na parede.","Fale com o homem na entrada. No dia 1 ele dá a Giant's Wallet."],
    tip:"Nos dias 2 e 3 o prêmio vira rupees. Ela é necessária para pagar os 500 rupees da All-Night Mask."}
  ]},
- {t:"Quest da Anju e do Kafei", s:"Dá para fazer num ciclo só", note:"Faça depois de Great Bay ou de Stone Tower, quando já tiver as músicas e o dinheiro. No mesmo ciclo dá para comprar a All-Night Mask na Curiosity Shop na noite 3 por 500 rupees. Isso só funciona se você tiver salvado a velhinha no dia 1.", items:[
-  {id:"keaton",img:"m09",shot:"s09",n:"Keaton Mask",pt:"Máscara do Keaton",loc:"Casa do Kafei, Laundry Pool",req:["Kafei's Mask"],
+ {t:"Quest da Anju e do Kafei", s:"Dá para fazer num ciclo só", quest:"missao-anju", note:"Faça depois de Great Bay ou de Stone Tower, quando já tiver as músicas e o dinheiro. No mesmo ciclo dá para comprar a All-Night Mask na Curiosity Shop na noite 3 por 500 rupees. Isso só funciona se você tiver salvado a velhinha no dia 1.", items:[
+  {id:"keaton",quest:1,img:"m09",shot:"s09",n:"Keaton Mask",pt:"Máscara do Keaton",loc:"Casa do Kafei, Laundry Pool",req:["Kafei's Mask"],
    fx:"Faz a raposa Keaton aparecer nos arbustos que se mexem.",
    how:"Rende da quest da Anju: o dono da Curiosity Shop entrega no dia 3.",
    steps:["Dia 1, entre 14h e 15h: fale com a Anju no Stock Pot Inn usando a Kafei's Mask. Ela marca um encontro na cozinha à meia-noite.","Meia-noite do dia 1: na cozinha da pousada, receba a Letter to Kafei.","Ponha a carta em qualquer caixa de correio antes das 9h do dia 2.","Dia 2, entre 16h e 19h: entre pela porta dos fundos da Curiosity Shop, no Laundry Pool. O Kafei dá o Pendant of Memories.","Entregue o pingente à Anju antes das 20h do dia 2.","Dia 3, de manhã: volte à casa do Kafei no Laundry Pool. O dono da Curiosity Shop entrega a Keaton Mask e a Express Mail to Mama."],
    tip:"Com a máscara, corte os arbustos que se mexem e acerte as 5 perguntas do Keaton para ganhar um pedaço de coração."},
-  {id:"postman",img:"m04",shot:"s04",n:"Postman's Hat",pt:"Chapéu do Carteiro",loc:"Correios e Milk Bar",req:["Express Mail to Mama"],
+  {id:"postman",quest:1,img:"m04",shot:"s04",n:"Postman's Hat",pt:"Chapéu do Carteiro",loc:"Correios e Milk Bar",req:["Express Mail to Mama"],
    fx:"Permite olhar dentro das caixas de correio da cidade.",
    how:"Entregue a Express Mail to Mama ao carteiro.",
    steps:["Pegue a Express Mail to Mama com o dono da Curiosity Shop no dia 3 (veja a Keaton Mask).","Leve a carta ao carteiro nos Correios, em West Clock Town.","Ele vai ao Milk Bar entregar a carta à Madame Aroma e é dispensado do serviço.","Encontre o carteiro fora do bar e receba o chapéu."],
    tip:"Se der a carta direto para a Madame Aroma, você ganha o frasco de Chateau Romani em vez do chapéu. Faça um em cada ciclo."},
-  {id:"couple",img:"m17",shot:"s17",n:"Couple's Mask",pt:"Máscara do Casal",loc:"Stock Pot Inn",req:["Kafei's Mask","Stone Mask","Garo's Mask (acesso a Ikana)"],
+  {id:"couple",quest:1,img:"m17",shot:"s17",n:"Couple's Mask",pt:"Máscara do Casal",loc:"Stock Pot Inn",req:["Kafei's Mask","Stone Mask","Garo's Mask (acesso a Ikana)"],
    fx:"Encerra a reunião na sala do prefeito.",
    how:"Fique no quarto da Anju até o Kafei chegar, de madrugada no dia 3.",
    steps:["Faça os passos dos dias 1 e 2 da Keaton Mask (carta e pingente).","Dia 3, a partir das 18h: vá a Ikana Canyon e encontre o Kafei escondido perto do rio.","Coloque a Stone Mask e espere o Sakon abrir o esconderijo por volta das 19h. Entre junto com o Kafei.","Resolva os interruptores alternando entre Link e Kafei para salvar a Sun's Mask antes que caia no buraco.","Volte ao Stock Pot Inn e esteja no quarto da Anju antes das 4h do dia 3.","Assista ao reencontro e receba a Couple's Mask."],
    tip:"No ciclo seguinte, use-a na reunião do prefeito Dotour (Mayor's Residence) e ganhe um pedaço de coração."},
-  {id:"allnight",img:"m05",shot:"s05",n:"All-Night Mask",pt:"Máscara da Noite Toda",loc:"Curiosity Shop, West Clock Town",req:["Giant's Wallet","500 rupees","Velhinha salva no dia 1"],
+  {id:"allnight",quest:1,img:"m05",shot:"s05",n:"All-Night Mask",pt:"Máscara da Noite Toda",loc:"Curiosity Shop, West Clock Town",req:["Giant's Wallet","500 rupees","Velhinha salva no dia 1"],
    fx:"Impede Link de dormir.",
    how:"Compre na Curiosity Shop na noite 3 por 500 rupees.",
    steps:["Na noite 1, salve a velhinha da Bomb Shop do Sakon (veja a Blast Mask).","Tenha a Giant's Wallet e 500 rupees. Saque do banco se for preciso.","Na noite 3, entre na Curiosity Shop, em West Clock Town.","Compre a All-Night Mask."],
@@ -247,3 +247,48 @@ const ITEM_GROUPS = [
   {id:"c11",img:"i_OoT_Ocarina_of_Time",shot:"c13",ms:"♪",n:"Scarecrow's Song",pt:"Canção do Espantalho",notes:"",loc:"Trading Post ou Astral Observatory",req:["Ocarina"],fx:"Faz o espantalho aparecer como alvo do Hookshot.",how:"Componha 8 notas para o espantalho.",steps:["Fique na frente do espantalho no Trading Post ou no Observatório.","Toque uma melodia de 8 notas que não seja de outra canção.","Ele aprende a música e aparece quando você tocá-la onde a Tatl fica verde."],tip:"O espantalho esquece ao voltar no tempo. Escolha algo fácil de lembrar."}
  ]}
 ];
+
+/* Missão completa da Anju e do Kafei: linha do tempo de um ciclo */
+const QUEST_ANJU = {
+ title:"Missão da Anju e do Kafei",
+ intro:"A missão inteira cabe em um ciclo de 3 dias. Siga os horários abaixo e marque cada etapa conforme faz. Se perder um horário, toque a Song of Time e recomece.",
+ rewards:["keaton","postman","couple","allnight"],
+ prereqs:[
+  {id:"kafei",t:"Kafei's Mask",d:"Para a Anju aceitar falar com você."},
+  {id:"stone",t:"Stone Mask",d:"Para esperar o Sakon sem ser visto."},
+  {id:"garo",t:"Garo's Mask, Hookshot e Ice Arrows",d:"Para chegar a Ikana Canyon no dia 3."},
+  {id:"gwallet",t:"Giant's Wallet e 500 rupees",d:"Para comprar a All-Night Mask na noite 3."},
+  {id:"c3",t:"Song of Soaring",d:"Para ir e voltar rápido entre Clock Town e Ikana."}
+ ],
+ days:[
+  {t:"Dia 1", steps:[
+   {h:"13h45",opt:1,s:"No Stock Pot Inn (East Clock Town), sem máscara, diga à Anju que tem uma reserva e pegue a Room Key antes do Goron chegar. Com a chave você entra na pousada à noite."},
+   {h:"14h – 16h",s:"Coloque a Kafei's Mask e fale com a Anju no balcão, depois que o carteiro sair. Ela marca um encontro com você à noite na cozinha."},
+   {h:"23h30",s:"Vá à cozinha do Stock Pot Inn (porta à direita no térreo). A Anju entrega a Letter to Kafei."},
+   {h:"Noite 1",s:"Ponha a Letter to Kafei em qualquer caixa de correio da cidade. Ela precisa estar lá antes das 9h do dia 2."},
+   {h:"0h20",s:"Em North Clock Town, impeça o Sakon de roubar a velhinha da Bomb Shop. Você ganha a Blast Mask e a All-Night Mask fica à venda na noite 3.",r:["blast"]}
+  ]},
+  {t:"Dia 2", steps:[
+   {h:"15h",s:"No Laundry Pool, veja o carteiro entregar a carta na porta dos fundos da Curiosity Shop."},
+   {h:"16h – 19h",s:"Entre por essa porta (toque o sino se estiver fechada) e fale com o Kafei. Ele entrega o Pendant of Memories."},
+   {h:"Até 20h",s:"Leve o Pendant of Memories à Anju no Stock Pot Inn. Agora ela vai esperar o Kafei até o fim do ciclo."},
+   {h:"21h – 22h",opt:1,s:"No quarto da Anju, você pode assistir à conversa dela com a mãe. Não muda nada na missão."}
+  ]},
+  {t:"Dia 3", steps:[
+   {h:"6h – 13h",s:"Volte à casa do Kafei no Laundry Pool. O dono da Curiosity Shop entrega a Keaton Mask e a Express Mail to Mama.",r:["keaton"]},
+   {h:"Durante o dia",s:"Entregue a Express Mail to Mama ao carteiro. Ele leva a carta à Madame Aroma e, quando você o encontra de novo, dá o Postman's Hat. Se preferir o frasco de Chateau Romani, guarde a carta e dê direto à Madame Aroma no Milk Bar à noite. Não dá para ganhar os dois no mesmo ciclo.",r:["postman"]},
+   {h:"18h",s:"Use a Song of Soaring até Ikana Canyon. Encontre o Kafei escondido nas pedras perto do rio, ao lado do Business Scrub, e coloque a Stone Mask."},
+   {h:"19h",s:"O Sakon chega e abre o esconderijo. Entre logo atrás do Kafei."},
+   {h:"Logo depois",s:"No esconderijo, alterne entre Link e Kafei pelos interruptores. Derrote os inimigos rápido e pare a esteira antes que a Sun's Mask caia no buraco."},
+   {h:"22h – 5h",s:"Volte a Clock Town e compre a All-Night Mask na Curiosity Shop (West Clock Town) por 500 rupees.",r:["allnight"]},
+   {h:"Antes das 4h",s:"Entre no quarto da Anju no Stock Pot Inn e espere."},
+   {h:"≈ 4h30",s:"O Kafei chega com a Sun's Mask. Assista à cena e receba a Couple's Mask.",r:["couple"]}
+  ]}
+ ],
+ after:[
+  "Couple's Mask: use na reunião do prefeito, na Mayor's Residence, para ganhar um pedaço de coração.",
+  "Postman's Hat: examine qualquer caixa de correio para ganhar um pedaço de coração.",
+  "Keaton Mask: corte os arbustos que se mexem e acerte as 5 perguntas do Keaton para ganhar um pedaço de coração.",
+  "All-Night Mask: escute as duas histórias da avó da Anju no Stock Pot Inn. Cada uma dá um pedaço de coração."
+ ]
+};

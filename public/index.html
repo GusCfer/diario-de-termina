@@ -116,6 +116,43 @@ section.view{display:grid;gap:22px}
 .tile.done .thumb{border-color:var(--ok)}
 .tile.done .name{color:#bff0d2}
 @media (max-width:560px){.tile .thumb{width:54px;height:54px}.tile .thumb img{width:46px;height:46px}.tile .thumb.photo img{width:100%;height:100%}}
+/* missão */
+.quest-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;background:var(--moon-soft);border:1px solid #f0a23a55;color:var(--ink);text-decoration:none}
+.quest-link span{display:grid;gap:1px}
+.quest-link b{color:var(--moon);font-size:.92rem}
+.quest-link small{color:var(--muted);font-size:.78rem;font-weight:600}
+.quest-link svg{width:20px;height:20px;flex:none;stroke:var(--moon);stroke-width:2.4;fill:none}
+.qtitle{font-family:var(--display);font-size:clamp(1.4rem,4.5vw,2rem);margin:2px 0 6px;line-height:1.1;text-wrap:balance}
+.qintro{margin:0;color:var(--soft);max-width:65ch}
+.qh{font-family:var(--display);font-size:1.05rem;margin:0 0 10px;letter-spacing:.03em}
+.rewards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.reward{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:10px 4px;border-radius:12px;background:var(--night-2);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.72rem;font-weight:800;line-height:1.2}
+.reward .thumb{width:52px;height:52px}.reward .thumb img{width:44px;height:44px}
+.reward.got{border-color:var(--ok);background:var(--ok-soft)}
+.pre{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pre li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start}
+.pre .dot{width:12px;height:12px;border-radius:50%;border:2px solid #5b4d80;margin-top:4px}
+.pre li.ok .dot{background:var(--ok);border-color:var(--ok)}
+.pre a{color:var(--ink);font-weight:800;text-decoration:none}
+.pre small{display:block;color:var(--muted);font-size:.8rem}
+.day{display:grid}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:2px solid var(--line);margin-left:15px}
+.tstep{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:0 0 16px 0;margin-left:-16px}
+.tbox{width:30px;height:30px;display:grid;place-items:center;background:var(--night);border:0;padding:0;cursor:pointer;border-radius:50%}
+.tbox span{width:22px;height:22px;border-radius:50%;border:2px solid #5b4d80;display:grid;place-items:center;background:var(--night-2)}
+.tbox svg{width:12px;height:12px;opacity:0;stroke:var(--night);stroke-width:3.4;fill:none}
+.tstep.done .tbox span{background:var(--ok);border-color:var(--ok)}
+.tstep.done .tbox svg{opacity:1}
+.tstep.done p{color:var(--muted)}
+.tbody{min-width:0;padding-top:3px}
+.thead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.time{font-weight:800;color:var(--moon);font-variant-numeric:tabular-nums;font-size:.9rem}
+.tbody p{margin:4px 0 0;font-size:.92rem;max-width:68ch;color:var(--soft)}
+.rrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rchip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 4px;border-radius:99px;background:var(--night-3);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.75rem;font-weight:800}
+.rchip img{width:22px;height:22px;object-fit:contain}
+.after{margin:0;padding-left:18px;display:grid;gap:6px;font-size:.9rem}
+@media (max-width:420px){.rewards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* detalhe */
 .detail{display:grid;gap:18px}
 .crumbs{display:flex;justify-content:space-between;gap:8px;align-items:center}
@@ -372,23 +409,23 @@ const PHASES = [
    steps:["Toque a Song of Time e comece um ciclo novo.","Vá direto para a Ocean Spider House, na Great Bay Coast, ainda no dia 1.","Derrote as 30 Gold Skulltulas. Use o Hookshot, quebre os vasos e procure atrás de quadros e das máscaras na parede.","Fale com o homem na entrada. No dia 1 ele dá a Giant's Wallet."],
    tip:"Nos dias 2 e 3 o prêmio vira rupees. Ela é necessária para pagar os 500 rupees da All-Night Mask."}
  ]},
- {t:"Quest da Anju e do Kafei", s:"Dá para fazer num ciclo só", note:"Faça depois de Great Bay ou de Stone Tower, quando já tiver as músicas e o dinheiro. No mesmo ciclo dá para comprar a All-Night Mask na Curiosity Shop na noite 3 por 500 rupees. Isso só funciona se você tiver salvado a velhinha no dia 1.", items:[
-  {id:"keaton",img:"m09",shot:"s09",n:"Keaton Mask",pt:"Máscara do Keaton",loc:"Casa do Kafei, Laundry Pool",req:["Kafei's Mask"],
+ {t:"Quest da Anju e do Kafei", s:"Dá para fazer num ciclo só", quest:"missao-anju", note:"Faça depois de Great Bay ou de Stone Tower, quando já tiver as músicas e o dinheiro. No mesmo ciclo dá para comprar a All-Night Mask na Curiosity Shop na noite 3 por 500 rupees. Isso só funciona se você tiver salvado a velhinha no dia 1.", items:[
+  {id:"keaton",quest:1,img:"m09",shot:"s09",n:"Keaton Mask",pt:"Máscara do Keaton",loc:"Casa do Kafei, Laundry Pool",req:["Kafei's Mask"],
    fx:"Faz a raposa Keaton aparecer nos arbustos que se mexem.",
    how:"Rende da quest da Anju: o dono da Curiosity Shop entrega no dia 3.",
    steps:["Dia 1, entre 14h e 15h: fale com a Anju no Stock Pot Inn usando a Kafei's Mask. Ela marca um encontro na cozinha à meia-noite.","Meia-noite do dia 1: na cozinha da pousada, receba a Letter to Kafei.","Ponha a carta em qualquer caixa de correio antes das 9h do dia 2.","Dia 2, entre 16h e 19h: entre pela porta dos fundos da Curiosity Shop, no Laundry Pool. O Kafei dá o Pendant of Memories.","Entregue o pingente à Anju antes das 20h do dia 2.","Dia 3, de manhã: volte à casa do Kafei no Laundry Pool. O dono da Curiosity Shop entrega a Keaton Mask e a Express Mail to Mama."],
    tip:"Com a máscara, corte os arbustos que se mexem e acerte as 5 perguntas do Keaton para ganhar um pedaço de coração."},
-  {id:"postman",img:"m04",shot:"s04",n:"Postman's Hat",pt:"Chapéu do Carteiro",loc:"Correios e Milk Bar",req:["Express Mail to Mama"],
+  {id:"postman",quest:1,img:"m04",shot:"s04",n:"Postman's Hat",pt:"Chapéu do Carteiro",loc:"Correios e Milk Bar",req:["Express Mail to Mama"],
    fx:"Permite olhar dentro das caixas de correio da cidade.",
    how:"Entregue a Express Mail to Mama ao carteiro.",
    steps:["Pegue a Express Mail to Mama com o dono da Curiosity Shop no dia 3 (veja a Keaton Mask).","Leve a carta ao carteiro nos Correios, em West Clock Town.","Ele vai ao Milk Bar entregar a carta à Madame Aroma e é dispensado do serviço.","Encontre o carteiro fora do bar e receba o chapéu."],
    tip:"Se der a carta direto para a Madame Aroma, você ganha o frasco de Chateau Romani em vez do chapéu. Faça um em cada ciclo."},
-  {id:"couple",img:"m17",shot:"s17",n:"Couple's Mask",pt:"Máscara do Casal",loc:"Stock Pot Inn",req:["Kafei's Mask","Stone Mask","Garo's Mask (acesso a Ikana)"],
+  {id:"couple",quest:1,img:"m17",shot:"s17",n:"Couple's Mask",pt:"Máscara do Casal",loc:"Stock Pot Inn",req:["Kafei's Mask","Stone Mask","Garo's Mask (acesso a Ikana)"],
    fx:"Encerra a reunião na sala do prefeito.",
    how:"Fique no quarto da Anju até o Kafei chegar, de madrugada no dia 3.",
    steps:["Faça os passos dos dias 1 e 2 da Keaton Mask (carta e pingente).","Dia 3, a partir das 18h: vá a Ikana Canyon e encontre o Kafei escondido perto do rio.","Coloque a Stone Mask e espere o Sakon abrir o esconderijo por volta das 19h. Entre junto com o Kafei.","Resolva os interruptores alternando entre Link e Kafei para salvar a Sun's Mask antes que caia no buraco.","Volte ao Stock Pot Inn e esteja no quarto da Anju antes das 4h do dia 3.","Assista ao reencontro e receba a Couple's Mask."],
    tip:"No ciclo seguinte, use-a na reunião do prefeito Dotour (Mayor's Residence) e ganhe um pedaço de coração."},
-  {id:"allnight",img:"m05",shot:"s05",n:"All-Night Mask",pt:"Máscara da Noite Toda",loc:"Curiosity Shop, West Clock Town",req:["Giant's Wallet","500 rupees","Velhinha salva no dia 1"],
+  {id:"allnight",quest:1,img:"m05",shot:"s05",n:"All-Night Mask",pt:"Máscara da Noite Toda",loc:"Curiosity Shop, West Clock Town",req:["Giant's Wallet","500 rupees","Velhinha salva no dia 1"],
    fx:"Impede Link de dormir.",
    how:"Compre na Curiosity Shop na noite 3 por 500 rupees.",
    steps:["Na noite 1, salve a velhinha da Bomb Shop do Sakon (veja a Blast Mask).","Tenha a Giant's Wallet e 500 rupees. Saque do banco se for preciso.","Na noite 3, entre na Curiosity Shop, em West Clock Town.","Compre a All-Night Mask."],
@@ -512,6 +549,51 @@ const ITEM_GROUPS = [
  ]}
 ];
 
+/* Missão completa da Anju e do Kafei: linha do tempo de um ciclo */
+const QUEST_ANJU = {
+ title:"Missão da Anju e do Kafei",
+ intro:"A missão inteira cabe em um ciclo de 3 dias. Siga os horários abaixo e marque cada etapa conforme faz. Se perder um horário, toque a Song of Time e recomece.",
+ rewards:["keaton","postman","couple","allnight"],
+ prereqs:[
+  {id:"kafei",t:"Kafei's Mask",d:"Para a Anju aceitar falar com você."},
+  {id:"stone",t:"Stone Mask",d:"Para esperar o Sakon sem ser visto."},
+  {id:"garo",t:"Garo's Mask, Hookshot e Ice Arrows",d:"Para chegar a Ikana Canyon no dia 3."},
+  {id:"gwallet",t:"Giant's Wallet e 500 rupees",d:"Para comprar a All-Night Mask na noite 3."},
+  {id:"c3",t:"Song of Soaring",d:"Para ir e voltar rápido entre Clock Town e Ikana."}
+ ],
+ days:[
+  {t:"Dia 1", steps:[
+   {h:"13h45",opt:1,s:"No Stock Pot Inn (East Clock Town), sem máscara, diga à Anju que tem uma reserva e pegue a Room Key antes do Goron chegar. Com a chave você entra na pousada à noite."},
+   {h:"14h – 16h",s:"Coloque a Kafei's Mask e fale com a Anju no balcão, depois que o carteiro sair. Ela marca um encontro com você à noite na cozinha."},
+   {h:"23h30",s:"Vá à cozinha do Stock Pot Inn (porta à direita no térreo). A Anju entrega a Letter to Kafei."},
+   {h:"Noite 1",s:"Ponha a Letter to Kafei em qualquer caixa de correio da cidade. Ela precisa estar lá antes das 9h do dia 2."},
+   {h:"0h20",s:"Em North Clock Town, impeça o Sakon de roubar a velhinha da Bomb Shop. Você ganha a Blast Mask e a All-Night Mask fica à venda na noite 3.",r:["blast"]}
+  ]},
+  {t:"Dia 2", steps:[
+   {h:"15h",s:"No Laundry Pool, veja o carteiro entregar a carta na porta dos fundos da Curiosity Shop."},
+   {h:"16h – 19h",s:"Entre por essa porta (toque o sino se estiver fechada) e fale com o Kafei. Ele entrega o Pendant of Memories."},
+   {h:"Até 20h",s:"Leve o Pendant of Memories à Anju no Stock Pot Inn. Agora ela vai esperar o Kafei até o fim do ciclo."},
+   {h:"21h – 22h",opt:1,s:"No quarto da Anju, você pode assistir à conversa dela com a mãe. Não muda nada na missão."}
+  ]},
+  {t:"Dia 3", steps:[
+   {h:"6h – 13h",s:"Volte à casa do Kafei no Laundry Pool. O dono da Curiosity Shop entrega a Keaton Mask e a Express Mail to Mama.",r:["keaton"]},
+   {h:"Durante o dia",s:"Entregue a Express Mail to Mama ao carteiro. Ele leva a carta à Madame Aroma e, quando você o encontra de novo, dá o Postman's Hat. Se preferir o frasco de Chateau Romani, guarde a carta e dê direto à Madame Aroma no Milk Bar à noite. Não dá para ganhar os dois no mesmo ciclo.",r:["postman"]},
+   {h:"18h",s:"Use a Song of Soaring até Ikana Canyon. Encontre o Kafei escondido nas pedras perto do rio, ao lado do Business Scrub, e coloque a Stone Mask."},
+   {h:"19h",s:"O Sakon chega e abre o esconderijo. Entre logo atrás do Kafei."},
+   {h:"Logo depois",s:"No esconderijo, alterne entre Link e Kafei pelos interruptores. Derrote os inimigos rápido e pare a esteira antes que a Sun's Mask caia no buraco."},
+   {h:"22h – 5h",s:"Volte a Clock Town e compre a All-Night Mask na Curiosity Shop (West Clock Town) por 500 rupees.",r:["allnight"]},
+   {h:"Antes das 4h",s:"Entre no quarto da Anju no Stock Pot Inn e espere."},
+   {h:"≈ 4h30",s:"O Kafei chega com a Sun's Mask. Assista à cena e receba a Couple's Mask.",r:["couple"]}
+  ]}
+ ],
+ after:[
+  "Couple's Mask: use na reunião do prefeito, na Mayor's Residence, para ganhar um pedaço de coração.",
+  "Postman's Hat: examine qualquer caixa de correio para ganhar um pedaço de coração.",
+  "Keaton Mask: corte os arbustos que se mexem e acerte as 5 perguntas do Keaton para ganhar um pedaço de coração.",
+  "All-Night Mask: escute as duas histórias da avó da Anju no Stock Pot Inn. Cada uma dá um pedaço de coração."
+ ]
+};
+
 const HEARTS = [
  ["Clock Town","Correios: no minijogo do carteiro, pare o cronômetro em exatamente 10 segundos (noite 1 ou 2, 15h-18h). A Bunny Hood mostra o cronômetro."],
  ["Clock Town","Troque a Moon's Tear (Observatório) com o Business Scrub em frente à Clock Tower e use a flor dele para voar até a saliência acima das portas."],
@@ -610,7 +692,7 @@ function renderMasks(){
   PHASES.forEach((p,pi)=>{
     const ids=p.items.map(i=>i.id), c=ids.filter(has).length;
     h+=`<div class="phase"><div class="phase-h"><span class="n">${pi+1}</span><h2>${esc(p.t)}</h2><span class="count">${c}/${ids.length}</span></div>
-    <p class="phase-note">${esc(p.s)}${p.note?". "+esc(p.note):""}</p><div class="tiles">`;
+    <p class="phase-note">${esc(p.s)}${p.note?". "+esc(p.note):""}</p>${p.quest?`<a class="quest-link" href="#${p.quest}"><span><b>Ver a missão completa</b><small>Linha do tempo dos 3 dias, com horários</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>`:""}<div class="tiles">`;
     p.items.forEach(m=>{
       h+=linkCard(m);
     });
@@ -691,10 +773,40 @@ function renderDetail(id){
         ${notes}
       </dl></div>
     </div>
+    ${e.quest?`<a class="quest-link" href="#missao-anju"><span><b>Faz parte da missão da Anju e do Kafei</b><small>Ver a missão completa, dia a dia</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>`:""}
     <div class="steps"><h3>Passo a passo</h3><ol>${(e.steps||[]).map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol></div>
     ${e.tip?`<div class="tipbox"><h3>Dica</h3><p>${esc(e.tip)}</p></div>`:""}
     <div class="pager">${prev?`<a href="#d-${prev.id}"><small>‹ Anterior</small><b>${esc(prev.n)}</b></a>`:'<span class="empty"></span>'}${next?`<a class="next" href="#d-${next.id}"><small>Próximo ›</small><b>${esc(next.n)}</b></a>`:'<span class="empty"></span>'}</div>
   </div>`;
+}
+
+/* ---------- missão da Anju e do Kafei ---------- */
+const Q=QUEST_ANJU;
+const QSTEP_IDS=Q.days.flatMap((d,di)=>d.steps.map((_,si)=>`qa-${di}-${si}`));
+function miniChip(id){const e=BY_ID[id];if(!e)return"";return `<a class="rchip" href="#d-${id}">${e.img&&IMG[e.img]?`<img src="${IMG[e.img]}" alt="">`:""}${esc(e.n)}</a>`}
+function renderQuest(){
+  const el=document.getElementById("v-detalhe");
+  const done=QSTEP_IDS.filter(has).length;
+  let h=`<div class="detail quest">
+    <div class="crumbs"><a class="back" href="#mascaras"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Máscaras</a><span class="pos">${done} de ${QSTEP_IDS.length} etapas</span></div>
+    <div><p class="eyebrow">Fase 5 · missão de um ciclo</p><h2 class="qtitle">${esc(Q.title)}</h2><p class="qintro">${esc(Q.intro)}</p></div>
+    <div class="rewards">${Q.rewards.map(id=>{const e=BY_ID[id];return `<a class="reward${has(id)?" got":""}" href="#d-${id}">${lead(e)}<span>${esc(e.n)}</span></a>`}).join("")}</div>
+    <div class="facts"><h3 class="qh">Antes de começar</h3><ul class="pre">${Q.prereqs.map(p=>`<li class="${has(p.id)?"ok":""}"><span class="dot" aria-hidden="true"></span><span><a href="#d-${p.id}">${esc(p.t)}</a><small>${esc(p.d)}</small></span></li>`).join("")}</ul></div>`;
+  Q.days.forEach((d,di)=>{
+    h+=`<section class="day"><h3 class="qh">${esc(d.t)}</h3><ol class="timeline">`;
+    d.steps.forEach((st,si)=>{
+      const id=`qa-${di}-${si}`;
+      h+=`<li class="tstep${has(id)?" done":""}">
+        <button class="tbox" type="button" role="checkbox" aria-checked="${has(id)}" aria-label="Etapa feita" data-toggle="${id}"><span>${CHECK}</span></button>
+        <div class="tbody"><div class="thead"><span class="time">${esc(st.h)}</span>${st.opt?'<span class="chip">Opcional</span>':""}</div>
+        <p>${esc(st.s)}</p>${st.r?`<div class="rrow">${st.r.map(miniChip).join("")}</div>`:""}</div></li>`;
+    });
+    h+=`</ol></section>`;
+  });
+  h+=`<div class="tipbox"><h3>Depois da missão</h3><ul class="after">${Q.after.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
+    <button class="btn" type="button" id="b-qreset">Recomeçar ciclo (desmarcar as etapas)</button>
+  </div>`;
+  el.innerHTML=h;
 }
 
 function renderGuide(){
@@ -765,8 +877,9 @@ function toggle(id){
   const y=window.scrollY;
   renderMasks();renderHearts();renderItems();updateStats();
   if(current.startsWith("d-"))renderDetail(current.slice(2));
+  if(current==="missao-anju")renderQuest();
   window.scrollTo(0,y);
-  const again=document.querySelector(`#v-${current.startsWith("d-")?"detalhe":current} [data-toggle="${CSS.escape(id)}"]`);
+  const again=document.querySelector(`#v-${current.startsWith("d-")||current==="missao-anju"?"detalhe":current} [data-toggle="${CSS.escape(id)}"]`);
   if(again)again.focus({preventScroll:true});
 }
 document.addEventListener("click",e=>{
@@ -786,6 +899,7 @@ document.addEventListener("click",e=>{
         if(typeof o!=="object"||!o)throw 0; S=o; save(); renderAll(); window.cloudPush&&window.cloudPush(); document.getElementById("msg").textContent="Backup importado."}
       catch(_){msg.textContent="Código inválido. Copie o código inteiro de novo e tente outra vez."}
       break}
+    case "b-qreset":QSTEP_IDS.forEach(k=>delete S[k]);save();window.cloudPush&&window.cloudPush();renderQuest();break;
     case "b-reset":document.getElementById("reset-box").hidden=false;break;
     case "b-reset-no":document.getElementById("reset-box").hidden=true;break;
     case "b-reset-yes":S={};save();renderAll();window.cloudPush&&window.cloudPush();document.getElementById("msg").textContent="Progresso apagado.";break;
@@ -800,19 +914,19 @@ let current="mascaras";
 function route(){
   scrollMem[current]=window.scrollY;
   let h=location.hash.slice(1);
-  if(!(VIEWS.includes(h)||(h.startsWith("d-")&&BY_ID[h.slice(2)])))h="mascaras";
-  const isDetail=h.startsWith("d-");
-  const tab=isDetail?BY_ID[h.slice(2)].kind:h;
-  if(isDetail)renderDetail(h.slice(2));
+  if(!(VIEWS.includes(h)||h==="missao-anju"||(h.startsWith("d-")&&BY_ID[h.slice(2)])))h="mascaras";
+  const isDetail=h.startsWith("d-")||h==="missao-anju";
+  const tab=h==="missao-anju"?"mascaras":isDetail?BY_ID[h.slice(2)].kind:h;
+  if(h==="missao-anju")renderQuest(); else if(isDetail)renderDetail(h.slice(2));
   VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=isDetail||x!==h);
   document.getElementById("v-detalhe").hidden=!isDetail;
   document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.view===tab)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   const prev=current; current=h;
   if(isDetail)window.scrollTo(0,0);
-  else window.scrollTo(0,prev.startsWith("d-")?(scrollMem[h]||0):0);
+  else window.scrollTo(0,(prev.startsWith("d-")||prev==="missao-anju")?(scrollMem[h]||0):0);
 }
 window.addEventListener("hashchange",route);
-window.tracker={get:()=>S,set:(o)=>{S=o||{};save();renderAll();if(current.startsWith("d-"))renderDetail(current.slice(2))}};
+window.tracker={get:()=>S,set:(o)=>{S=o||{};save();renderAll();if(current.startsWith("d-"))renderDetail(current.slice(2));if(current==="missao-anju")renderQuest()}};
 renderAll(); route();
 </script>
 <script type="module">
