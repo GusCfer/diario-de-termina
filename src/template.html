@@ -96,6 +96,26 @@ section.view{display:grid;gap:22px}
 .hearts span{width:16px;height:15px;background:var(--night-3);clip-path:path("M8 15 L1.2 8.2 A3.9 3.9 0 0 1 8 2.6 A3.9 3.9 0 0 1 14.8 8.2 Z")}
 .hearts span.full{background:var(--heart)}
 .hearts span.part{background:linear-gradient(90deg,var(--heart) var(--p),var(--night-3) var(--p))}
+/* grade compacta de máscaras e itens */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+@media (min-width:700px){.tiles{grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:10px}}
+.tile{position:relative;border-radius:14px;background:var(--night-2);border:1px solid var(--line);transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent;min-width:0}
+.tile:hover{border-color:#54467a}
+.tile .open{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 6px 10px;color:inherit;text-decoration:none;height:100%;border-radius:14px}
+.tile .thumb{width:60px;height:60px;border-radius:12px}
+.tile .thumb img{width:50px;height:50px}
+.tile .thumb.photo img{width:100%;height:100%}
+.tile .name{font-weight:800;font-size:.8rem;line-height:1.2;overflow-wrap:anywhere;text-wrap:balance}
+.tile .pt{font-size:.68rem;color:var(--muted);line-height:1.25;font-weight:600;overflow-wrap:anywhere}
+.tick{position:absolute;top:2px;right:2px;width:34px;height:34px;display:grid;place-items:center;background:none;border:0;padding:0;cursor:pointer}
+.tick span{width:20px;height:20px;border-radius:6px;border:2px solid #5b4d80;display:grid;place-items:center;background:var(--night-2)}
+.tick svg{width:12px;height:12px;opacity:0;stroke:var(--night);stroke-width:3.4;fill:none}
+.tile.done{background:var(--ok-soft);border-color:#5fcf8a66}
+.tile.done .tick span{background:var(--ok);border-color:var(--ok)}
+.tile.done .tick svg{opacity:1}
+.tile.done .thumb{border-color:var(--ok)}
+.tile.done .name{color:#bff0d2}
+@media (max-width:560px){.tile .thumb{width:54px;height:54px}.tile .thumb img{width:46px;height:46px}.tile .thumb.photo img{width:100%;height:100%}}
 /* detalhe */
 .detail{display:grid;gap:18px}
 .crumbs{display:flex;justify-content:space-between;gap:8px;align-items:center}
@@ -266,11 +286,10 @@ function lead(e,big){
   if(e.shot&&IMG[e.shot])return `<div class="thumb photo"><img src="${IMG[e.shot]}" alt="" loading="lazy"></div>`;
   return `<div class="thumb glyph" aria-hidden="true">${esc(e.ms||"•")}</div>`;
 }
-function linkCard(e,chips){
-  return `<div class="card${has(e.id)?" done":""}" data-card="${e.id}">
-    <a class="open" href="#d-${e.id}">${lead(e)}<div class="txt"><div class="name">${esc(e.n)}</div>${e.pt?`<div class="pt">${esc(e.pt)}</div>`:""}
-    <p class="how">${esc(e.how)}</p>${chips?`<div class="req">${chips}</div>`:""}<span class="more">Ver passo a passo ›</span></div></a>
-    <button class="box" type="button" role="checkbox" aria-checked="${has(e.id)}" aria-label="Marcar ${esc(e.n)}" data-toggle="${e.id}"><span>${CHECK}</span></button></div>`;
+function linkCard(e){
+  return `<div class="tile${has(e.id)?" done":""}" data-card="${e.id}">
+    <a class="open" href="#d-${e.id}">${lead(e)}<span class="name">${esc(e.n)}</span>${e.pt?`<span class="pt">${esc(e.pt)}</span>`:""}</a>
+    <button class="tick" type="button" role="checkbox" aria-checked="${has(e.id)}" aria-label="Marcar ${esc(e.n)}" data-toggle="${e.id}"><span>${CHECK}</span></button></div>`;
 }
 function toggleCard(id,leadHtml,name,sub,how,chips){
   return `<div class="card toggle${has(id)?" done":""}" role="checkbox" tabindex="0" aria-checked="${has(id)}" data-toggle="${id}">
@@ -285,14 +304,13 @@ function renderMasks(){
   const done=MASK_IDS.filter(has).length;
   let h=`<div class="summary"><div class="row"><span>Máscaras coletadas</span><span>${done} / 24</span></div>
   <div class="bar"><i style="width:${done/24*100}%"></i></div>
-  <p>Ordem recomendada. Toque numa máscara para ver o passo a passo, ou na caixa à direita para marcar.</p></div>`;
+  <p>Ordem recomendada. Toque numa máscara para ver o passo a passo, ou no quadradinho do canto para marcar.</p></div>`;
   PHASES.forEach((p,pi)=>{
     const ids=p.items.map(i=>i.id), c=ids.filter(has).length;
     h+=`<div class="phase"><div class="phase-h"><span class="n">${pi+1}</span><h2>${esc(p.t)}</h2><span class="count">${c}/${ids.length}</span></div>
-    <p class="phase-note">${esc(p.s)}${p.note?". "+esc(p.note):""}</p><div class="grid">`;
+    <p class="phase-note">${esc(p.s)}${p.note?". "+esc(p.note):""}</p><div class="tiles">`;
     p.items.forEach(m=>{
-      const chips=m.tr?'<span class="chip reg">Transformação</span>':(m.milestone?'<span class="chip">Marco</span>':"");
-      h+=linkCard(m,chips);
+      h+=linkCard(m);
     });
     h+=`</div></div>`;
   });
@@ -339,11 +357,11 @@ function renderItems(){
   const done=ITEM_IDS.filter(has).length;
   let h=`<div class="summary"><div class="row"><span>Itens e melhorias</span><span>${done} / ${ITEM_IDS.length}</span></div>
   <div class="bar"><i style="width:${done/ITEM_IDS.length*100}%"></i></div>
-  <p>Toque num item para ver onde fica e o passo a passo.</p></div>`;
+  <p>Toque num item para ver onde fica e o passo a passo, ou no quadradinho do canto para marcar.</p></div>`;
   ITEM_GROUPS.forEach(g=>{
     const c=g.items.filter(i=>has(i.id)).length;
-    h+=`<div class="phase"><div class="phase-h"><h2>${esc(g.t)}</h2><span class="count">${c}/${g.items.length}</span></div><div class="grid">`;
-    g.items.forEach(i=>{h+=linkCard(i,"")});
+    h+=`<div class="phase"><div class="phase-h"><h2>${esc(g.t)}</h2><span class="count">${c}/${g.items.length}</span></div><div class="tiles">`;
+    g.items.forEach(i=>{h+=linkCard(i)});
     h+=`</div></div>`;
   });
   document.getElementById("v-itens").innerHTML=h;
