@@ -1560,7 +1560,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelec
 window.tracker={
   get:()=>S, notes:()=>N,
   /* troca o estado inteiro (e as anotações, se vierem) */
-  set:(o,n)=>{S=migrate(o||{});save();if(n!==undefined){N={...(n||{})};saveNotes()}renderAll();paint()},
+  set:(o,n)=>{S=migrate({...(o||{})});save();if(n!==undefined){N={...(n||{})};saveNotes()}renderAll();paint()},
   setAccount:a=>{ACCT=a;if(!a)slotUi={};renderSave();renderSide()}
 };
 renderAll(); route();
@@ -1680,7 +1680,8 @@ async function startSync(u) {
     qs.forEach(d => { const x = d.data(); slots.set(d.id, { id: d.id, name: x.name || "Save", state: x.state || {}, notes: x.notes || {}, created: ms(x.createdAt), updated: ms(x.updatedAt) }); });
     // Sem internet e sem nada em cache não dá para saber se a conta já tem saves: espera voltar a conexão.
     if (!slots.size && qs.metadata.fromCache) throw new Error("offline");
-    const local = T().get(), localNotes = T().notes(), mine = remembered(uid);
+    const local = T().get(), localNotes = T().notes();
+    let mine = remembered(uid);
     if (!slots.size) {
       // Primeira vez com slots: o progresso que já estava na conta vira o "Save 1".
       const old = await getDoc(doc(db, "users", uid)).catch(() => null);
@@ -1688,13 +1689,29 @@ async function startSync(u) {
       const now = Date.now(), st = clean({ ...remote, ...local }), nt = cleanNotes(localNotes);
       slots.set("s1", { id: "s1", name: "Save 1", state: st, notes: nt, created: now, updated: now });
       setDoc(slotRef(uid, "s1"), { name: "Save 1", state: st, notes: nt, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
-      active = "s1";
+      active = mine = "s1";
+    } else if (slots.has(mine)) {
+      active = mine;
     } else {
-      active = slots.has(mine) ? mine : newest().id;
+      // Aparelho sem save lembrado (ou o lembrado foi excluído): não dá para supor que o progresso local
+      // é do save alterado por último. Usa o save mais parecido com o que está aqui; se nada bate,
+      // o progresso local vai para um save novo em vez de sobrescrever um que já existe.
+      const keys = Object.keys(clean(local));
+      const overlap = x => keys.filter(k => x.state[k]).length;
+      const best = [...slots.values()].sort((a, b) => overlap(b) - overlap(a) || b.updated - a.updated)[0];
+      if (!keys.length || overlap(best) > 0) { active = best.id; mine = keys.length ? best.id : null; }
+      else if (slots.size < MAX_SLOTS) {
+        const names = new Set([...slots.values()].map(x => x.name));
+        let n = slots.size + 1; while (names.has("Save " + n)) n++;
+        const id = "s" + Date.now().toString(36), now = Date.now(), st = clean(local), nt = cleanNotes(localNotes);
+        slots.set(id, { id, name: "Save " + n, state: st, notes: nt, created: now, updated: now });
+        setDoc(slotRef(uid, id), { name: "Save " + n, state: st, notes: nt, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
+        active = mine = id;
+      } else { active = newest().id; mine = "-"; }
     }
     const s = slots.get(active);
-    // O que está neste aparelho só é juntado ao save se pertence a ele (ou se ainda não era de nenhum save).
-    const ownLocal = !mine || mine === active;
+    // O que está neste aparelho só é juntado ao save se pertence a ele.
+    const ownLocal = mine === active;
     const st = ownLocal ? clean({ ...s.state, ...local }) : clean(s.state);
     const nt = ownLocal ? cleanNotes({ ...localNotes, ...s.notes }) : cleanNotes(s.notes);
     remember();

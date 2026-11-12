@@ -1019,7 +1019,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelec
 window.tracker={
   get:()=>S, notes:()=>N,
   /* troca o estado inteiro (e as anotações, se vierem) */
-  set:(o,n)=>{S=migrate(o||{});save();if(n!==undefined){N={...(n||{})};saveNotes()}renderAll();paint()},
+  set:(o,n)=>{S=migrate({...(o||{})});save();if(n!==undefined){N={...(n||{})};saveNotes()}renderAll();paint()},
   setAccount:a=>{ACCT=a;if(!a)slotUi={};renderSave();renderSide()}
 };
 renderAll(); route();
