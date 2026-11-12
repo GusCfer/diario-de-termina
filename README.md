@@ -60,8 +60,8 @@ Cada máscara e item tem uma página própria com screenshot, requisitos e passo
 
 | | |
 |---|---|
-| 🎭 **Máscaras em ordem de jogo** | As 24 máscaras divididas em 6 fases (do começo até o Fierce Deity), com uma réplica da tela de máscaras do jogo que vai se preenchendo. |
-| ❤️ **Corações como no jogo** | Os 52 pedaços agrupados por região e os 4 Heart Containers dos chefes. A contagem mostra quartos de coração e a vida total (3 iniciais → 20). |
+| 🎭 **Máscaras em ordem de jogo** | As 24 máscaras divididas em 6 fases (do começo até o Fierce Deity), com uma réplica da tela de máscaras do jogo que vai se preenchendo. Cada máscara tem um modelo 3D que gira e pode ser arrastado na visualização detalhada. |
+| ❤️ **Corações como no jogo** | Os 52 pedaços agrupados por região e os 4 Heart Containers dos chefes. A contagem mostra quartos de coração e a vida total (3 iniciais → 20). 48 dos 52 pedaços têm uma foto de onde achar, aberta pelo botão "Ver foto". |
 | 🎒 **Inventário completo** | 10 grupos: carteiras, frascos, bolsas de bomba, arco e aljavas, espadas e escudos, Grandes Fadas, itens importantes, consumíveis, itens de troca e as 13 canções. |
 | 📜 **Missão da Anju e do Kafei** | A quest mais longa do jogo em 17 etapas com horário, do dia 1 à noite 3, com pré-requisitos e o que fazer depois. |
 | 📖 **Enciclopédia de Termina** | 61 NPCs, 55 inimigos, 13 mini-chefes, 7 chefes, 20 objetos, 33 locais e 11 dungeons, com busca, fichas ligadas entre si e dicas de combate. |
@@ -124,8 +124,11 @@ diario-de-termina/
 │   ├── enc_src.json      texto de inimigos e chefes extraído dos guias do Hyrule Legends
 │   ├── enc_auto.py       gera src/enc_auto.js a partir de enc_src.json
 │   ├── enc_check.js      valida ids e referências e lista as imagens
-│   └── enc_fetch.py      baixa e converte as imagens para public/enc/<id>.webp
-├── public/               site publicado (index.html, sw.js, manifest, ícones, enc/)
+│   ├── enc_fetch.py      baixa e converte as imagens para public/enc/<id>.webp
+│   ├── hearts_images.json qual figura do detonado vai em cada pedaço de coração
+│   ├── hearts_fetch.py   baixa e converte as fotos para public/coracoes/h<n>.webp
+│   └── modelos/          scripts que convertem os modelos das máscaras (OBJ/DAE) para GLB
+├── public/               site publicado (index.html, sw.js, manifest, ícones, enc/, coracoes/, modelos/)
 ├── docs/                 banner e capturas deste README
 ├── build.py              monta public/index.html
 ├── firebase.json         hosting com no-cache no HTML, no SW e no manifest
@@ -159,6 +162,23 @@ node tools/enc_check.js .        # confere ids, referências cruzadas e imagens
 python3 tools/enc_fetch.py /tmp/enc-cache   # baixa e converte as imagens para public/enc/
 ```
 
+### Fotos dos corações
+
+```bash
+python3 tools/hearts_fetch.py /tmp/hearts-cache   # baixa só as que faltam em public/coracoes/
+```
+
+Para trocar uma foto, edite `tools/hearts_images.json`, apague a imagem antiga em `public/coracoes/` e rode o script de novo.
+
+### Modelos 3D das máscaras
+
+Os arquivos `public/modelos/<id>.glb` vêm dos modelos de *Majora's Mask 3D* do The Models Resource, convertidos com `trimesh` e `pycollada` (`pip install trimesh pycollada pillow`). A página mostra com o [`<model-viewer>`](https://modelviewer.dev), carregado só quando uma máscara é aberta.
+
+- `tools/modelos/conv.py`: converte os OBJ (a maioria)
+- `tools/modelos/zup.py`: endireita os DAE que vêm com Z para cima
+- `tools/modelos/bunny.py`: Bunny Hood, que precisa de leitura manual do DAE
+- `tools/modelos/flatten.py`: Blast Mask e Couple's Mask, juntando as duas camadas de textura numa só
+
 > [!TIP]
 > Ao mudar arquivos do site, aumente a versão de `CACHE` em `public/sw.js` para que quem instalou o app receba a atualização.
 
@@ -167,6 +187,8 @@ python3 tools/enc_fetch.py /tmp/enc-cache   # baixa e converte as imagens para p
 - Imagens das máscaras, frascos e canções e informações de apoio: [Hyrule Legends](https://zelda.com.br/mm)
 - Ícones de itens do inventário: [Zelda Wiki](https://zeldawiki.wiki)
 - Lista de pedaços de coração baseada no guia do [Thonky](https://www.thonky.com/zelda-majoras-mask/pieces-of-heart)
+- Fotos de onde achar os pedaços de coração: figuras do [detonado do Hyrule Legends](https://zelda.com.br/mm/detonado/pagina-01)
+- Modelos 3D das máscaras: [The Models Resource](https://www.models-resource.com) (*Majora's Mask 3D*, extraídos por Guy)
 - Ícone do relógio de Clock Town: arte de Otaku Crafts
 
 <div align="center">
