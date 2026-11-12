@@ -1124,7 +1124,7 @@ function detailHtml(id){
     <div class="crumbs"><a class="back" href="#${e.kind}">${BACK}${split?"Fechar":e.kind==="mascaras"?"Máscaras":"Itens"}</a><span class="pos">${i+1} de ${list.length}</span></div>
     <div class="hero">${lead(e)}<div><p class="eyebrow">${esc(e.group)}</p><h2 class="title">${esc(e.n)}</h2>${e.pt?`<p class="lede" style="margin-top:2px">${esc(e.pt)}</p>`:""}</div></div>
     <button class="checkbig${on?" on":""}" type="button" role="checkbox" aria-checked="${on}" data-toggle="${e.id}"><span class="cbox">${CHECK}</span>${on?"Obtido":"Marcar como obtido"}</button>
-    <div class="cols">${shot}
+    <div class="cols">${m3d?`<div style="display:grid;gap:16px">${m3d}${shot}</div>`:shot}
       <div class="facts"><dl>
         <div><dt>Onde</dt><dd>${esc(e.loc||"")}</dd></div>
         <div><dt>Requisitos</dt><dd><div class="reqs">${(e.req||[]).map(r=>`<span class="chip">${esc(r)}</span>`).join("")}</div></dd></div>
@@ -1135,7 +1135,6 @@ function detailHtml(id){
     ${e.quest?`<a class="quest-link" href="#missao-anju"><img src="${IMG.m17}" alt=""><span><b>Faz parte da missão da Anju e do Kafei</b><small>Ver a missão completa, dia a dia</small></span>${ARROW}</a>`:""}
     <div class="steps"><h3>Passo a passo</h3><ol>${(e.steps||[]).map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol></div>
     ${e.tip?`<div class="tipbox"><h3>Dica</h3><p>${esc(e.tip)}</p></div>`:""}
-    ${m3d?`<div class="m3d-wrap"><h3>Modelo 3D</h3>${m3d}</div>`:""}
     <div class="pager">${prev?`<a href="#d-${prev.id}"><small>‹ Anterior</small><b>${esc(prev.n)}</b></a>`:'<span class="empty"></span>'}${next?`<a class="next" href="#d-${next.id}"><small>Próximo ›</small><b>${esc(next.n)}</b></a>`:'<span class="empty"></span>'}</div>
   </div>`;
 }
