@@ -167,8 +167,9 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2
 .card.done .cbox{background:var(--magic);border-color:var(--magic)}
 .card.done .cbox svg{opacity:1}
 .card.done .how{color:var(--muted)}
-.hshot{display:block;margin:8px 0 2px;padding:0;border:3px solid #0c0907;outline:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000;width:100%;max-width:240px;aspect-ratio:4/3;cursor:zoom-in}
-.hshot img{width:100%;height:100%;object-fit:cover;display:block}
+.hshot{display:inline-flex;align-items:center;gap:6px;margin:8px 0 2px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--soft);font:inherit;font-size:.82rem;font-weight:700;cursor:zoom-in}
+.hshot:hover{color:inherit;border-color:currentColor}
+.hshot svg{width:16px;height:16px}
 .zoom{position:fixed;inset:0;z-index:100;background:#000d;display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
 .zoom img{max-width:100%;max-height:100%;border-radius:10px;border:4px solid #0c0907}
 .pnum{position:relative;width:42px;height:42px;display:grid;place-items:center}
@@ -1082,7 +1083,7 @@ function renderHearts(){
     const id="h"+(i+1);
     if(region==="Pendentes"&&has(id))return;
     if(region!=="Todas"&&region!=="Pendentes"&&x[0]!==region)return;
-    const ph=HSHOTS.has(i+1)?`<button type="button" class="hshot" data-zoom="coracoes/h${i+1}.webp" aria-label="Ampliar foto do local do pedaço ${i+1}"><img src="coracoes/h${i+1}.webp" alt="Onde achar o pedaço ${i+1}" loading="lazy"></button>`:"";
+    const ph=HSHOTS.has(i+1)?`<button type="button" class="hshot" data-zoom="coracoes/h${i+1}.webp" aria-label="Ver foto de onde achar o pedaço ${i+1}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l2-2h6l2 2h3v12H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Ver foto</button>`:"";
     h+=toggleCard(id,`<div class="pnum"><img src="${IMG.i_OoT_Piece_of_Heart}" alt=""><b>${i+1}</b></div>`,`Pedaço ${i+1}`,"",x[1],`<span class="chip reg">${esc(x[0])}</span>`,ph);
   });
   h+=`</div></section>`;
