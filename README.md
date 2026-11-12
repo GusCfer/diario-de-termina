@@ -47,6 +47,11 @@ Cada máscara e item tem uma página própria com screenshot, requisitos e passo
 <td align="center"><img src="docs/shot-missao-anju.png" width="230" alt="Missão da Anju e do Kafei"><br><b>Anju &amp; Kafei</b><br><sub>A missão inteira, hora a hora, em um ciclo</sub></td>
 <td align="center"><img src="docs/shot-guia.png" width="230" alt="Guia rápido"><br><b>Guia</b><br><sub>Truques de tempo, rupees e Title Deeds</sub></td>
 </tr>
+<tr>
+<td align="center"><img src="docs/shot-mascara-3d.png" width="230" alt="Modelo 3D da Deku Mask"><br><b>Modelo 3D</b><br><sub>Cada máscara gira e pode ser arrastada</sub></td>
+<td align="center"><img src="docs/shot-coracoes-foto.png" width="230" alt="Foto de onde achar um pedaço de coração"><br><b>Onde achar</b><br><sub>Foto do local de cada pedaço de coração</sub></td>
+<td></td>
+</tr>
 </table>
 
 <details>
