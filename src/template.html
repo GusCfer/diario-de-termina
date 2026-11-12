@@ -201,6 +201,9 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2
 .checkbig.on .cbox{background:var(--magic);border-color:var(--magic)}
 .checkbig.on .cbox svg{opacity:1}
 .cols{display:grid;grid-template-columns:1fr;gap:16px}
+.m3d{position:relative;margin:0;border-radius:10px;overflow:hidden;border:4px solid #0c0907;outline:1px solid var(--line);background:radial-gradient(circle at 50% 40%,#3a2c1e,#120d09 75%);aspect-ratio:1/1;max-width:100%}
+.m3d model-viewer{width:100%;height:100%;--poster-color:transparent;--progress-bar-color:var(--gold,#e0b04a)}
+.m3d figcaption{position:absolute;left:8px;bottom:6px;font-size:.75rem;color:#ffffffaa;pointer-events:none}
 .shot{margin:0;border-radius:10px;overflow:hidden;border:4px solid #0c0907;outline:1px solid var(--line);background:#000;aspect-ratio:4/3;max-width:100%}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
 .facts{display:grid;gap:12px;padding:16px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
@@ -565,17 +568,21 @@ function renderItems(){
 
 /* ---------- detalhe ---------- */
 const NOTE={A:["A","a"],U:["▲",""],D:["▼",""],L:["◀",""],R:["▶",""]};
+const MODELS=new Set(["postman","allnight","blast","stone","fairy","deku","keaton","bremen","bunny","gero","scents","goron","romani","circus","kafei","couple","truth","zora","kamaro","gibdo","garo","captain","giant","fierce"]);
+let mvLoaded=false;
+function loadMV(){if(mvLoaded)return;mvLoaded=true;const sc=document.createElement("script");sc.type="module";sc.src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js";document.head.append(sc)}
 function detailHtml(id){
   const e=BY_ID[id];
   const list=ENTRIES.filter(x=>x.kind===e.kind), i=list.indexOf(e), prev=list[i-1], next=list[i+1];
   const on=has(e.id);
   const notes=e.notes?`<div><dt>Notas na ocarina</dt><dd><div class="notes">${[...e.notes].map(c=>`<span class="note ${NOTE[c][1]}" title="${c==="A"?"A":"C "+NOTE[c][0]}">${NOTE[c][0]}</span>`).join("")}</div></dd></div>`:"";
   const shot=e.shot&&IMG[e.shot]?`<figure class="shot"><img src="${IMG[e.shot]}" alt="Cena do jogo: ${esc(e.n)}"></figure>`:"";
+  const m3d=MODELS.has(e.id)?(loadMV(),`<figure class="m3d"><model-viewer src="modelos/${e.id}.glb" alt="Modelo 3D: ${esc(e.n)}" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="25deg" interaction-prompt="none" shadow-intensity="0" exposure="1.1" camera-orbit="0deg 80deg auto" touch-action="pan-y"></model-viewer><figcaption>Arraste para girar</figcaption></figure>`):"";
   return `<div class="detail">
     <div class="crumbs"><a class="back" href="#${e.kind}">${BACK}${split?"Fechar":e.kind==="mascaras"?"Máscaras":"Itens"}</a><span class="pos">${i+1} de ${list.length}</span></div>
     <div class="hero">${lead(e)}<div><p class="eyebrow">${esc(e.group)}</p><h2 class="title">${esc(e.n)}</h2>${e.pt?`<p class="lede" style="margin-top:2px">${esc(e.pt)}</p>`:""}</div></div>
     <button class="checkbig${on?" on":""}" type="button" role="checkbox" aria-checked="${on}" data-toggle="${e.id}"><span class="cbox">${CHECK}</span>${on?"Obtido":"Marcar como obtido"}</button>
-    <div class="cols">${shot}
+    <div class="cols">${m3d?`<div style="display:grid;gap:16px">${m3d}${shot}</div>`:shot}
       <div class="facts"><dl>
         <div><dt>Onde</dt><dd>${esc(e.loc||"")}</dd></div>
         <div><dt>Requisitos</dt><dd><div class="reqs">${(e.req||[]).map(r=>`<span class="chip">${esc(r)}</span>`).join("")}</div></dd></div>
