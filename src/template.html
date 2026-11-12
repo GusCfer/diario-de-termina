@@ -546,12 +546,12 @@ function renderItems(){
   const done=ITEM_IDS.filter(has).length;
   let h=`<header class="summary">
     <div><p class="eyebrow">Itens</p><h2 class="title">Inventário e melhorias</h2>
-    <p class="lede">Carteiras, frascos, armas, canções e tudo que fica com você entre os ciclos.</p></div>
+    <p class="lede">Carteiras, frascos, armas, canções e também os consumíveis e itens de troca, para completar o quadro de itens do jogo.</p></div>
     <div class="summary-grid">${meter("Obtidos",done,ITEM_IDS.length,"gold")}</div>
   </header>`;
   ITEM_GROUPS.forEach(g=>{
     const c=g.items.filter(i=>has(i.id)).length;
-    h+=`<section class="phase">${secH(g.t,c,g.items.length)}<div class="tiles">${g.items.map(tile).join("")}</div></section>`;
+    h+=`<section class="phase">${secH(g.t,c,g.items.length)}${g.note?`<p class="note-line">${esc(g.note)}.</p>`:""}<div class="tiles">${g.items.map(tile).join("")}</div></section>`;
   });
   $("v-itens").innerHTML=h;
 }
