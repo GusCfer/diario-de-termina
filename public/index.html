@@ -60,7 +60,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .desk-only{display:none}
 
 /* navegação: embaixo no celular */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel);border-top:1px solid var(--line);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(6,1fr);background:var(--panel);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 2px;text-decoration:none;color:var(--muted);font-family:var(--label);font-weight:700;font-size:.78rem;border-radius:10px;position:relative}
 nav.tabs a img{width:30px;height:30px;object-fit:contain;filter:grayscale(.85) brightness(.75);transition:filter .15s}
@@ -325,6 +325,45 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
 @media (min-width:600px){.etiles{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}}
 @media (min-width:900px){.cats{flex-wrap:wrap;overflow:visible}}
 
+/* save: slots e anotações */
+.slots{display:grid;gap:8px;grid-template-columns:1fr}
+.slot{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:12px 14px;border-radius:10px;background:var(--panel);border:1px solid var(--line);min-width:0}
+.slot.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);background:linear-gradient(#e2b33c0f,#e2b33c0f),var(--panel)}
+.slot .num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#24180f;font-weight:800;box-shadow:0 0 0 3px var(--line)}
+.slot.on .num{box-shadow:0 0 0 3px var(--gold)}
+.slot .sname{font-weight:800;overflow-wrap:anywhere;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.slot .sname input{font:inherit;font-weight:800;color:var(--ink);background:var(--ground);border:1px solid var(--gold);border-radius:8px;padding:4px 8px;width:100%;max-width:260px}
+.slot small{display:block;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.slot .acts{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.slot .acts .btn{padding:6px 12px;font-size:.85rem}
+.slot .ask{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--soft);font-size:.9rem}
+.chip.on{color:#24180f;background:var(--gold);border-color:var(--gold)}
+.fields{display:grid;gap:14px;grid-template-columns:1fr}
+.field{display:grid;gap:6px;padding:16px;border-radius:10px;background:var(--panel);border:1px solid var(--line);min-width:0;align-content:start}
+.field>label,.field>.flabel{font-family:var(--label);font-size:.85rem;letter-spacing:.06em;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:8px}
+.field>label img,.field>.flabel img{width:24px;height:24px;object-fit:contain}
+.field .hint{margin:0;color:var(--muted);font-size:.85rem;max-width:60ch}
+.code{font:inherit;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:1.6rem;font-weight:700;letter-spacing:.35em;color:var(--ink);background:var(--ground);border:1px solid var(--line);border-radius:10px;padding:8px 12px;width:100%;max-width:14ch}
+.code:focus,.ntext:focus{outline:2px solid var(--gold);outline-offset:1px}
+.code::placeholder{color:#a98f7466}
+.lotto{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lotto label{display:grid;gap:4px;font-family:var(--label);font-weight:700;font-size:.8rem;color:var(--soft)}
+.lotto .code{font-size:1.3rem;letter-spacing:.25em;max-width:none;padding:8px}
+.spider{display:flex;gap:6px;flex-wrap:wrap}
+.spider button{width:44px;height:44px;border-radius:10px;border:2px solid var(--line);background:var(--ground);cursor:pointer;display:grid;place-items:center;font:inherit;font-weight:800;color:var(--muted);font-size:.8rem}
+.spider button[data-c="R"]{background:#d0402f;border-color:#f08c7e}
+.spider button[data-c="B"]{background:#3f7fd0;border-color:#8cb8ee}
+.spider button[data-c="Y"]{background:#e2b33c;border-color:#f6dc8f}
+.spider button[data-c="G"]{background:#4caf50;border-color:#9ddc9f}
+.spider button[data-c]:not([data-c=""]){color:transparent}
+.ntext{font:inherit;font-size:.95rem;line-height:1.5;min-height:140px;width:100%;color:var(--ink);background:var(--ground);border:1px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical}
+.bank{display:flex;align-items:center;gap:8px}
+.bank .code{letter-spacing:.08em;max-width:9ch}
+.bank span{font-family:var(--label);font-weight:700;color:var(--soft)}
+.login-cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 16px;border-radius:10px;border:1px dashed #e2b33c88;background:#e2b33c0d}
+.login-cta p{margin:0;flex:1;min-width:200px;color:var(--soft)}
+@media (min-width:600px){.slots{grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fields .wide{grid-column:1/-1}}
+
 /* painel lateral (telas largas) */
 .idle{display:grid;gap:18px}
 .idle-meters{display:grid;gap:12px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
@@ -397,6 +436,7 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
       <a href="#coracoes" data-view="coracoes"><img id="nav-i-coracoes" alt=""><span>Corações</span><span class="cnt" id="s-hearts"></span></a>
       <a href="#itens" data-view="itens"><img id="nav-i-itens" alt=""><span>Itens</span><span class="cnt" id="s-items"></span></a>
       <a href="#termina" data-view="termina"><img src="enc/tatl.webp" alt=""><span>Termina</span><span class="cnt" id="s-enc"></span></a>
+      <a href="#save" data-view="save"><img id="nav-i-save" alt=""><span>Save</span><span class="cnt" id="s-slot"></span></a>
       <a href="#guia" data-view="guia"><img id="nav-i-guia" alt=""><span>Guia</span></a>
     </nav>
 
@@ -416,7 +456,8 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
     </div>
     <div class="menu" id="menu" hidden>
       <p><b id="acct-name"></b><br><small id="acct-email"></small></p>
-      <p><small>Seu progresso está salvo na sua conta e sincroniza entre aparelhos.</small></p>
+      <p><small>Save em uso: <b id="acct-slot"></b>. O progresso fica salvo na sua conta e sincroniza entre aparelhos.</small></p>
+      <a class="btn" href="#save" id="b-slots" style="text-decoration:none;text-align:center">Trocar de save</a>
       <button class="btn" type="button" id="b-logout">Sair</button>
     </div>
   </aside>
@@ -427,6 +468,7 @@ textarea{width:100%;min-height:80px;font:12px/1.4 ui-monospace,monospace;backgro
       <section class="view" id="v-coracoes" hidden></section>
       <section class="view" id="v-itens" hidden></section>
       <section class="view" id="v-termina" hidden></section>
+      <section class="view" id="v-save" hidden></section>
       <section class="view" id="v-guia" hidden></section>
       <section class="view" id="v-detalhe" hidden></section>
       <footer class="credits">Feito por fã, sem fins lucrativos. Imagens e informações: <a href="https://zelda.com.br/mm" target="_blank" rel="noopener">Hyrule Legends</a>, <a href="https://www.thonky.com/zelda-majoras-mask/pieces-of-heart" target="_blank" rel="noopener">Thonky</a> e <a href="https://zeldawiki.wiki" target="_blank" rel="noopener">Zelda Wiki</a>. Modelos 3D das máscaras: <a href="https://www.models-resource.com" target="_blank" rel="noopener">The Models Resource</a> (Majora’s Mask 3D, extraídos por Guy). Relógio de Clock Town: arte de Otaku Crafts. The Legend of Zelda é marca da Nintendo. Versão de referência: N64.</footer>
@@ -994,6 +1036,13 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 /* a Giant's Wallet saiu da aba de máscaras: leva a marcação antiga para o item */
 function migrate(o){if(o&&o.gwallet){o.w2=1;delete o.gwallet}return o}
 S=migrate(S);
+/* anotações do save (códigos que mudam de arquivo para arquivo) */
+const NKEY="mm-notes-v1";
+let N={};
+try{N=JSON.parse(localStorage.getItem(NKEY)||"{}")||{}}catch(e){N={}}
+function saveNotes(){try{localStorage.setItem(NKEY,JSON.stringify(N))}catch(e){}}
+/* conta e slots de save (preenchido pelo módulo de login; null quando não há login) */
+let ACCT=null, slotUi={};
 const has=id=>!!S[id];
 const CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
@@ -1012,7 +1061,7 @@ const WALL=["postman","allnight","blast","stone","fairy","deku","keaton","bremen
 
 /* ícones da navegação */
 $("nav-i-mascaras").src=IMG.m01; $("nav-i-coracoes").src=IMG.i_OoT_Piece_of_Heart;
-$("nav-i-itens").src=IMG.i_MM_Bomb_Bag; $("nav-i-guia").src=IMG.i_MM_Bombers_Notebook;
+$("nav-i-itens").src=IMG.i_MM_Bomb_Bag; $("nav-i-guia").src=IMG.i_MM_Bombers_Notebook; $("nav-i-save").src=IMG.i_OoT_Ocarina_of_Time;
 
 function lead(e){
   if(e.img&&IMG[e.img])return `<div class="thumb"><img src="${IMG[e.img]}" alt="" loading="lazy"></div>`;
@@ -1217,8 +1266,66 @@ function renderGuide(){
     <tr><td>Zora Hall</td><td>Zora</td><td>Mountain Title Deed</td><td>Ocean Title Deed</td></tr>
     <tr><td>Ikana Canyon</td><td>Deku</td><td>Ocean Title Deed</td><td>200 rupees</td></tr>
     </tbody></table></div></div>
-  <div class="panel wide"><h3>Seu progresso</h3>
-    <p id="save-info">Sem login, o progresso fica salvo só neste aparelho. Entre com Google para salvar na sua conta e ver o mesmo progresso no celular e no PC.</p>
+  </div>`;
+}
+
+/* ---------- save: slots e anotações ---------- */
+const SP_COL={R:"vermelho",B:"azul",Y:"amarelo",G:"verde"}, SP_NEXT={"":"R",R:"B",B:"Y",Y:"G",G:""};
+const NOTE_RULES={bombers:[/[^1-5]/g,5],lot1:[/\D/g,3],lot2:[/\D/g,3],lot3:[/\D/g,3],bank:[/\D/g,5]};
+const spiderArr=()=>{const s=(N.spider||"").padEnd(6,".");return [...s.slice(0,6)].map(c=>SP_COL[c]?c:"")};
+function stateSummary(st){
+  const h=HEARTS.filter((_,i)=>st["h"+(i+1)]).length;
+  return `${MASK_IDS.filter(id=>st[id]).length}/24 máscaras · ${h}/52 pedaços · ${ITEM_IDS.filter(id=>st[id]).length}/${ITEM_IDS.length} itens`;
+}
+function ago(ms){
+  if(!ms)return "";
+  const m=Math.round((Date.now()-ms)/60000);
+  if(m<1)return "agora mesmo"; if(m<60)return `há ${m} min`;
+  const h=Math.round(m/60); if(h<24)return `há ${h} h`;
+  return "em "+new Date(ms).toLocaleDateString("pt-BR");
+}
+function slotsHtml(){
+  if(!ACCT)return `<div class="login-cta"><p>Entre com Google para ter <b>vários slots de save</b>, cada um com o próprio progresso e as próprias anotações, e alternar entre eles quando quiser.</p><button class="gbtn" type="button" data-login>Entrar com Google</button></div>`;
+  const L=ACCT.slots;
+  return `<div class="slots">${L.map((x,i)=>{
+    const on=x.id===ACCT.active, ed=slotUi.edit===x.id;
+    return `<div class="slot${on?" on":""}"><span class="num">${i+1}</span>
+      <div style="min-width:0"><div class="sname">${ed?`<input id="slot-name" maxlength="40" value="${esc(x.name)}" aria-label="Nome do save" autocomplete="off">`:esc(x.name)}${on?'<span class="chip on">Em uso</span>':""}</div>
+      <small>${stateSummary(on?S:x.state)}</small><small>Alterado ${ago(x.updated)}</small></div>
+      <div class="acts">${on?"":`<button class="btn primary" type="button" data-slot-use="${x.id}">Usar este save</button>`}
+        ${ed?`<button class="btn primary" type="button" data-slot-ok="${x.id}">Salvar nome</button><button class="btn" type="button" data-slot-cancel>Cancelar</button>`:`<button class="btn" type="button" data-slot-ren="${x.id}">Renomear</button>`}
+        ${!on&&L.length>1&&slotUi.del!==x.id?`<button class="btn danger" type="button" data-slot-del="${x.id}">Excluir</button>`:""}</div>
+      ${slotUi.del===x.id?`<div class="ask">Excluir “${esc(x.name)}” e todo o progresso dele?<button class="btn danger" type="button" data-slot-del-yes="${x.id}">Sim, excluir</button><button class="btn" type="button" data-slot-cancel>Cancelar</button></div>`:""}
+    </div>`}).join("")}</div>
+  <div class="tools">${L.length<ACCT.max?`<button class="btn" type="button" data-slot-new>+ Novo save</button>`:""}<span class="sub" style="align-self:center">${L.length} de ${ACCT.max} slots${L.length>=ACCT.max?" (limite)":""}. Cada slot guarda o próprio checklist e as anotações abaixo.</span></div>`;
+}
+function renderSave(){
+  const fa=document.activeElement, keep=fa&&fa.id&&fa.closest&&fa.closest("#v-save")?[fa.id,fa.selectionStart,fa.selectionEnd]:null;
+  const cur=ACCT&&ACCT.slots.find(x=>x.id===ACCT.active);
+  const v=k=>esc(N[k]||"");
+  const sp=spiderArr();
+  $("v-save").innerHTML=`<header class="summary"><div><p class="eyebrow">Save</p><h2 class="title">${cur?esc(cur.name):"Seu save"}</h2>
+    <p class="lede">Códigos e números que mudam de um arquivo para outro. Anote aqui quando descobrir para não precisar fazer tudo de novo no próximo ciclo.</p></div></header>
+  <section class="phase">${secH("Slots de save")}${slotsHtml()}</section>
+  <section class="phase">${secH("Anotações"+(cur?" de "+cur.name:""))}
+  <div class="fields">
+    <div class="field"><label for="n-bombers"><img src="${IMG.i_MM_Bombers_Notebook}" alt="">Código dos Bombers</label>
+      <input class="code" id="n-bombers" data-note="bombers" inputmode="numeric" maxlength="5" placeholder="•••••" autocomplete="off" value="${v("bombers")}">
+      <p class="hint">5 números de 1 a 5, que o Jim fala depois que você pega os 5 Bombers em North Clock Town. É a senha do Bomber no beco de East Clock Town, que leva ao Astral Observatory.</p></div>
+    <div class="field"><span class="flabel">Loteria</span>
+      <div class="lotto">${[1,2,3].map(d=>`<label>Dia ${d}<input class="code" id="n-lot${d}" data-note="lot${d}" inputmode="numeric" maxlength="3" placeholder="•••" autocomplete="off" value="${v("lot"+d)}"></label>`).join("")}</div>
+      <p class="hint">Os números sorteados na Lottery Shop de West Clock Town, um para cada dia. Com eles anotados, é só comprar o bilhete certo no próximo ciclo.</p></div>
+    <div class="field"><span class="flabel">Oceanside Spider House</span>
+      <div class="spider" role="group" aria-label="Sequência de cores">${sp.map((c,i)=>`<button type="button" data-spider="${i}" data-c="${c}" aria-label="Cor ${i+1}: ${SP_COL[c]||"vazia"}">${c?"":i+1}</button>`).join("")}</div>
+      <p class="hint">A ordem das 6 cores das máscaras na casa da Great Bay Coast. Toque em cada quadrado para trocar: vermelho, azul, amarelo, verde.</p></div>
+    <div class="field"><label for="n-bank"><img src="${IMG.i_OoT_Adults_Wallet}" alt="">Rupees no banco</label>
+      <div class="bank"><input class="code" id="n-bank" data-note="bank" inputmode="numeric" maxlength="5" placeholder="0" autocomplete="off" value="${v("bank")}"><span>rupees</span></div>
+      <p class="hint">O banco de West Clock Town guarda as rupees entre os ciclos. Com 200 depositados você ganha a Adult's Wallet e com 5.000, um pedaço de coração.</p></div>
+    <div class="field wide"><label for="n-free"><img src="${IMG.i_MM_Pictograph_Box}" alt="">Outras anotações</label>
+      <textarea class="ntext" id="n-free" data-note="free" maxlength="4000" placeholder="Onde parei, o que fazer no próximo ciclo, horários para lembrar…">${v("free")}</textarea></div>
+  </div></section>
+  <div class="panel"><h3>Backup${cur?" deste save":""}</h3>
+    <p id="save-info">${ACCT?`Conectado como ${esc(ACCT.email)}. Este save fica na sua conta e sincroniza entre aparelhos.`:"Sem login, o progresso fica salvo só neste aparelho. Entre com Google para salvar na sua conta e ver o mesmo progresso no celular e no PC."}</p>
     <div class="tools">
       <button class="btn" type="button" id="b-copy">Copiar backup</button>
       <button class="btn" type="button" id="b-import">Importar backup</button>
@@ -1230,24 +1337,40 @@ function renderGuide(){
       <div class="tools"><button class="btn primary" type="button" id="b-apply">Aplicar</button></div>
     </div>
     <div id="reset-box" hidden style="margin-top:10px">
-      <p>Isso desmarca todas as máscaras, corações e itens.</p>
+      <p>Isso desmarca todas as máscaras, corações e itens e apaga as anotações${cur?" deste save":""}.</p>
       <div class="tools"><button class="btn danger" type="button" id="b-reset-yes">Sim, apagar</button><button class="btn" type="button" id="b-reset-no">Cancelar</button></div>
     </div>
     <p class="msg" id="msg" aria-live="polite"></p>
-  </div></div>`;
+  </div>`;
+  if(keep){const el=$(keep[0]);if(el){el.focus({preventScroll:true});try{if(keep[1]!=null)el.setSelectionRange(keep[1],keep[2])}catch(e){}}}
 }
+document.addEventListener("input",e=>{
+  const k=e.target.dataset&&e.target.dataset.note; if(!k)return;
+  let val=e.target.value; const r=NOTE_RULES[k];
+  if(r){const c=val.replace(r[0],"").slice(0,r[1]);if(c!==val){e.target.value=c;val=c}}
+  if(val)N[k]=val; else delete N[k];
+  saveNotes(); window.cloudPush&&window.cloudPush();
+});
+document.addEventListener("keydown",e=>{
+  if(e.target.id!=="slot-name")return;
+  if(e.key==="Enter"){e.preventDefault();window.cloud&&window.cloud.rename(slotUi.edit,e.target.value);slotUi={};renderSave()}
+  if(e.key==="Escape"){slotUi={};renderSave()}
+});
 
 function renderSide(){
   $("s-masks").textContent=MASK_IDS.filter(has).length+"/24";
   $("s-hearts").textContent=HEARTS.filter((_,i)=>has("h"+(i+1))).length+"/52";
   $("s-items").textContent=ITEM_IDS.filter(has).length+"/"+ITEM_IDS.length;
   $("s-enc").textContent=ENC.length;
+  const ai=ACCT?ACCT.slots.findIndex(x=>x.id===ACCT.active):-1;
+  $("s-slot").textContent=ai>=0?`${ai+1}/${ACCT.slots.length}`:"";
+  const cur=ai>=0?ACCT.slots[ai]:null; if($("acct-slot"))$("acct-slot").textContent=cur?cur.name:"";
   $("wall-side").innerHTML=wallHtml();
   const d=heartsData();
   $("hearts-side").innerHTML=d.s;
   $("hearts-side-txt").textContent=`${d.total} corações · ${d.pieces}/52 pedaços`;
 }
-function renderAll(){renderMasks();renderHearts();renderItems();renderTermina();renderGuide();renderSide()}
+function renderAll(){renderMasks();renderHearts();renderItems();renderTermina();renderGuide();renderSave();renderSide()}
 
 /* ---------- enciclopédia ---------- */
 const ENC_CATS=[
@@ -1338,7 +1461,7 @@ function encIdleHtml(){
 document.addEventListener("input",e=>{if(e.target.id==="enc-q"){encQ=e.target.value;encResults()}});
 
 /* ---------- rotas ---------- */
-const VIEWS=["mascaras","coracoes","itens","termina","guia"];
+const VIEWS=["mascaras","coracoes","itens","termina","save","guia"];
 const tabOf=h=>h==="missao-anju"?"mascaras":h.startsWith("d-")?BY_ID[h.slice(2)]?.kind:h.startsWith("e-")?"termina":h;
 const isDet=h=>h==="missao-anju"||h.startsWith("d-")||h.startsWith("e-");
 const wideMQ=matchMedia("(min-width:1240px)");
@@ -1387,7 +1510,7 @@ wideMQ.addEventListener("change",()=>paint());
 function toggle(id){
   if(S[id])delete S[id]; else S[id]=1; save(); window.cloudPush&&window.cloudPush();
   const y=window.scrollY, py=$("pane").scrollTop;
-  renderMasks();renderHearts();renderItems();renderSide();paint();
+  renderMasks();renderHearts();renderItems();renderSave();renderSide();paint();
   window.scrollTo(0,y); $("pane").scrollTop=py;
   const again=[...document.querySelectorAll(`.main [data-toggle="${CSS.escape(id)}"]`)].find(el=>el.offsetParent!==null);
   if(again)again.focus({preventScroll:true});
@@ -1397,11 +1520,23 @@ document.addEventListener("click",e=>{
   const z=e.target.closest("[data-zoom]"); if(z){e.preventDefault();const d=document.createElement("div");d.className="zoom";d.innerHTML=`<img src="${z.dataset.zoom}" alt="">`;document.body.append(d);return}
   const t=e.target.closest("[data-toggle]"); if(t){e.preventDefault();toggle(t.dataset.toggle);return}
   const r=e.target.closest("[data-region]"); if(r){region=r.dataset.region;renderHearts();return}
+  const sp=e.target.closest("[data-spider]"); if(sp){const a=spiderArr(),i=+sp.dataset.spider;a[i]=SP_NEXT[a[i]];const str=a.map(c=>c||".").join("").replace(/\.+$/,"");if(str)N.spider=str;else delete N.spider;saveNotes();window.cloudPush&&window.cloudPush();sp.dataset.c=a[i];sp.textContent=a[i]?"":i+1;sp.setAttribute("aria-label",`Cor ${i+1}: ${SP_COL[a[i]]||"vazia"}`);return}
+  if(e.target.closest("[data-login]")){$("b-login").click();return}
+  const sl=e.target.closest("[data-slot-use],[data-slot-ren],[data-slot-ok],[data-slot-cancel],[data-slot-del],[data-slot-del-yes],[data-slot-new]");
+  if(sl){const d=sl.dataset,C=window.cloud;
+    if(d.slotUse){slotUi={};C&&C.use(d.slotUse)}
+    else if(d.slotRen){slotUi={edit:d.slotRen};renderSave();const i=$("slot-name");if(i){i.focus();i.select()}return}
+    else if(d.slotOk){C&&C.rename(d.slotOk,($("slot-name")||{}).value||"");slotUi={}}
+    else if(d.slotDel){slotUi={del:d.slotDel}}
+    else if(d.slotDelYes){slotUi={};C&&C.remove(d.slotDelYes)}
+    else if("slotNew" in d){slotUi={};C&&C.create()}
+    else slotUi={};
+    renderSave();return}
   const cb=e.target.closest("[data-cat]"); if(cb){encCat=cb.dataset.cat;encQ="";const qi=$("enc-q");if(qi)qi.value="";encResults();return}
   const msg=$("msg");
   switch(e.target.id){
     case "b-copy":{
-      const code=btoa(unescape(encodeURIComponent(JSON.stringify(S))));
+      const code=btoa(unescape(encodeURIComponent(JSON.stringify({v:2,s:S,n:N}))));
       const box=$("import-box"),ta=$("import-text");
       const manual=()=>{box.hidden=false;ta.value=code;ta.select();msg.textContent="Selecione e copie o código acima."};
       if(navigator.clipboard)navigator.clipboard.writeText(code).then(()=>{msg.textContent="Código copiado."}).catch(manual); else manual();
@@ -1409,24 +1544,31 @@ document.addEventListener("click",e=>{
     case "b-import":$("import-box").hidden=false;$("import-text").value="";$("import-text").focus();break;
     case "b-apply":{
       try{const o=JSON.parse(decodeURIComponent(escape(atob($("import-text").value.trim()))));
-        if(typeof o!=="object"||!o)throw 0; S=o; save(); renderAll(); paint(); window.cloudPush&&window.cloudPush(); $("msg").textContent="Backup importado."}
+        if(typeof o!=="object"||!o)throw 0;
+        if(o.v===2&&o.s&&typeof o.s==="object"){S=migrate(o.s);N=o.n&&typeof o.n==="object"?o.n:{};saveNotes()} else S=migrate(o);
+        save(); renderAll(); paint(); window.cloudPush&&window.cloudPush(); $("msg").textContent="Backup importado."}
       catch(_){msg.textContent="Código inválido. Copie o código inteiro de novo e tente outra vez."}
       break}
     case "b-qreset":QSTEP_IDS.forEach(k=>delete S[k]);save();window.cloudPush&&window.cloudPush();paint();break;
     case "b-reset":$("reset-box").hidden=false;break;
     case "b-reset-no":$("reset-box").hidden=true;break;
-    case "b-reset-yes":S={};save();renderAll();paint();window.cloudPush&&window.cloudPush();$("msg").textContent="Progresso apagado.";break;
+    case "b-reset-yes":S={};N={};save();saveNotes();renderAll();paint();window.cloudPush&&window.cloudPush();$("msg").textContent="Progresso apagado.";break;
   }
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelector(".zoom")?.remove()}if(e.target.closest?.("[data-zoom]"))return;const c=e.target.closest?.(".card");if(c&&(e.key===" "||e.key==="Enter")){e.preventDefault();toggle(c.dataset.toggle)}});
 
-window.tracker={get:()=>S,set:(o)=>{S=migrate(o||{});save();renderAll();paint()}};
+window.tracker={
+  get:()=>S, notes:()=>N,
+  /* troca o estado inteiro (e as anotações, se vierem) */
+  set:(o,n)=>{S=migrate(o||{});save();if(n!==undefined){N={...(n||{})};saveNotes()}renderAll();paint()},
+  setAccount:a=>{ACCT=a;if(!a)slotUi={};renderSave();renderSide()}
+};
 renderAll(); route();
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { initializeFirestore, persistentLocalCache, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeFirestore, persistentLocalCache, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBvS1Fp7iPQOIyKwocf_MgDjeA6XDLwQhw",
@@ -1444,47 +1586,146 @@ const db = initializeFirestore(app, { localCache: persistentLocalCache() });
 const provider = new GoogleAuthProvider();
 
 const $ = id => document.getElementById(id);
-const ui = { login: $("b-login"), acct: $("b-acct"), avatar: $("avatar"), menu: $("menu"), sync: $("sync"), name: $("acct-name"), email: $("acct-email"), info: $("save-info") };
+const ui = { login: $("b-login"), acct: $("b-acct"), avatar: $("avatar"), menu: $("menu"), sync: $("sync"), name: $("acct-name"), email: $("acct-email") };
+const T = () => window.tracker;
 
-let user = null, unsub = null, ready = false, timer = null;
+/* Cada conta tem até MAX_SLOTS saves em users/{uid}/slots/{id}: { name, state, notes, createdAt, updatedAt }.
+   O slot em uso fica guardado por aparelho (localStorage), então o celular e o PC podem estar em saves diferentes. */
+const MAX_SLOTS = 6;
+let user = null, unsub = null, ready = false, timer = null, active = null, slots = new Map();
 
 function setSync(text, ok) { ui.sync.hidden = !text; ui.sync.textContent = text || ""; ui.sync.classList.toggle("ok", !!ok); }
-function clean(o) { const r = {}; for (const k in o) if (o[k]) r[k] = 1; return r; }
+function clean(o) { const r = {}; for (const k in o || {}) if (o[k]) r[k] = 1; return r; }
+function cleanNotes(n) { const r = {}; for (const k in n || {}) if (typeof n[k] === "string" && n[k]) r[k] = n[k].slice(0, 4000); return r; }
+function same(a, b) { const ka = Object.keys(a).sort(), kb = Object.keys(b).sort(); return ka.length === kb.length && ka.every((k, i) => k === kb[i] && a[k] === b[k]); }
+const slotsCol = uid => collection(db, "users", uid, "slots");
+const slotRef = (uid, id) => doc(db, "users", uid, "slots", id);
+const ms = t => (t && t.toMillis ? t.toMillis() : 0);
+const lsKey = uid => "mm-slot-" + uid;
+function remembered(uid) { try { return localStorage.getItem(lsKey(uid)); } catch (e) { return null; } }
+function remember() { try { localStorage.setItem(lsKey(user.uid), active); } catch (e) {} }
+const newest = () => [...slots.values()].sort((a, b) => b.updated - a.updated)[0];
+const fail = e => { console.error(e); setSync("Erro ao salvar"); };
 
+function publish() {
+  if (!user) return;
+  const list = [...slots.values()].sort((a, b) => a.created - b.created || a.id.localeCompare(b.id));
+  T().setAccount({ email: user.email || user.displayName || "", active, max: MAX_SLOTS, slots: list.map(x => ({ id: x.id, name: x.name, state: x.state, updated: x.updated })) });
+}
+
+function write(uid, sid) {
+  const state = clean(T().get()), notes = cleanNotes(T().notes());
+  const s = slots.get(sid); if (s) Object.assign(s, { state, notes, updated: Date.now() });
+  return updateDoc(slotRef(uid, sid), { state, notes, updatedAt: serverTimestamp() });
+}
 window.cloudPush = () => {
-  if (!user || !ready) return;
+  if (!user || !ready || !active) return;
   setSync("Salvando…");
   clearTimeout(timer);
-  timer = setTimeout(async () => {
-    try {
-      await setDoc(doc(db, "users", user.uid), { state: clean(window.tracker.get()), updatedAt: serverTimestamp() });
-      setSync("Salvo", true);
-    } catch (e) { console.error(e); setSync("Erro ao salvar"); }
+  const uid = user.uid, sid = active;
+  timer = setTimeout(() => {
+    timer = null;
+    write(uid, sid).then(() => setSync("Salvo", true)).catch(fail);
   }, 400);
+};
+/* grava na hora o que está pendente, antes de trocar de save ou sair */
+function flush() {
+  if (!timer) return;
+  clearTimeout(timer); timer = null;
+  write(user.uid, active).then(() => setSync("Salvo", true)).catch(fail);
+}
+
+function useSlot(id) {
+  const s = slots.get(id); if (!s) return;
+  flush();
+  active = id; remember();
+  T().set(s.state, s.notes);
+  publish();
+  setSync("Salvo", true);
+}
+
+window.cloud = {
+  use: id => { if (user && ready && id !== active) useSlot(id); },
+  create() {
+    if (!user || !ready || slots.size >= MAX_SLOTS) return;
+    const names = new Set([...slots.values()].map(x => x.name));
+    let n = slots.size + 1; while (names.has("Save " + n)) n++;
+    const id = "s" + Date.now().toString(36), now = Date.now();
+    slots.set(id, { id, name: "Save " + n, state: {}, notes: {}, created: now, updated: now });
+    setDoc(slotRef(user.uid, id), { name: "Save " + n, state: {}, notes: {}, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
+    useSlot(id);
+  },
+  rename(id, name) {
+    const s = slots.get(id); name = String(name || "").trim().slice(0, 40);
+    if (!user || !s || !name || name === s.name) return;
+    s.name = name;
+    updateDoc(slotRef(user.uid, id), { name }).catch(fail);
+    publish();
+  },
+  remove(id) {
+    if (!user || id === active || !slots.has(id) || slots.size <= 1) return;
+    slots.delete(id);
+    deleteDoc(slotRef(user.uid, id)).catch(fail);
+    publish();
+  }
 };
 
 async function startSync(u) {
-  const ref = doc(db, "users", u.uid);
+  const uid = u.uid;
   setSync("Sincronizando…");
+  slots = new Map(); active = null;
   try {
-    const snap = await getDoc(ref);
-    const remote = snap.exists() ? (snap.data().state || {}) : {};
-    const local = window.tracker.get();
-    const merged = clean({ ...remote, ...local });
-    window.tracker.set(merged);
+    const qs = await getDocs(slotsCol(uid));
+    if (user !== u) return;
+    qs.forEach(d => { const x = d.data(); slots.set(d.id, { id: d.id, name: x.name || "Save", state: x.state || {}, notes: x.notes || {}, created: ms(x.createdAt), updated: ms(x.updatedAt) }); });
+    // Sem internet e sem nada em cache não dá para saber se a conta já tem saves: espera voltar a conexão.
+    if (!slots.size && qs.metadata.fromCache) throw new Error("offline");
+    const local = T().get(), localNotes = T().notes(), mine = remembered(uid);
+    if (!slots.size) {
+      // Primeira vez com slots: o progresso que já estava na conta vira o "Save 1".
+      const old = await getDoc(doc(db, "users", uid)).catch(() => null);
+      const remote = old && old.exists() ? (old.data().state || {}) : {};
+      const now = Date.now(), st = clean({ ...remote, ...local }), nt = cleanNotes(localNotes);
+      slots.set("s1", { id: "s1", name: "Save 1", state: st, notes: nt, created: now, updated: now });
+      setDoc(slotRef(uid, "s1"), { name: "Save 1", state: st, notes: nt, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
+      active = "s1";
+    } else {
+      active = slots.has(mine) ? mine : newest().id;
+    }
+    const s = slots.get(active);
+    // O que está neste aparelho só é juntado ao save se pertence a ele (ou se ainda não era de nenhum save).
+    const ownLocal = !mine || mine === active;
+    const st = ownLocal ? clean({ ...s.state, ...local }) : clean(s.state);
+    const nt = ownLocal ? cleanNotes({ ...localNotes, ...s.notes }) : cleanNotes(s.notes);
+    remember();
+    T().set(st, nt);
     ready = true;
-    if (JSON.stringify(Object.keys(merged).sort()) !== JSON.stringify(Object.keys(remote).sort())) window.cloudPush();
+    publish();
+    if (!same(st, clean(s.state)) || !same(nt, cleanNotes(s.notes))) window.cloudPush();
     else setSync("Salvo", true);
-  } catch (e) { console.error(e); setSync("Sem conexão"); ready = true; }
-  unsub = onSnapshot(ref, s => {
-    if (!s.exists() || s.metadata.hasPendingWrites) return;
-    const remote = clean(s.data().state || {});
-    if (JSON.stringify(remote) !== JSON.stringify(clean(window.tracker.get()))) window.tracker.set(remote);
-  });
+  } catch (e) { console.error(e); setSync("Sem conexão"); return; }
+
+  unsub = onSnapshot(slotsCol(uid), qs => {
+    if (user !== u) return;
+    const m = new Map();
+    qs.forEach(d => {
+      const x = d.data({ serverTimestamps: "estimate" });
+      m.set(d.id, { id: d.id, name: x.name || "Save", state: x.state || {}, notes: x.notes || {}, created: ms(x.createdAt), updated: ms(x.updatedAt), pending: d.metadata.hasPendingWrites });
+    });
+    if (!m.size) return;
+    // slots criados aqui que o servidor ainda não devolveu continuam na lista
+    for (const [id, s] of slots) if (!m.has(id) && s.created > Date.now() - 10000) m.set(id, s);
+    slots = m;
+    if (!slots.has(active)) { useSlot(newest().id); return; }
+    const s = slots.get(active);
+    // mudança vinda de outro aparelho: aplica, a não ser que haja edição local esperando para ser gravada
+    if (!s.pending && !timer && (!same(clean(s.state), clean(T().get())) || !same(cleanNotes(s.notes), cleanNotes(T().notes())))) T().set(clean(s.state), cleanNotes(s.notes));
+    publish();
+  }, e => console.error(e));
 }
 
 onAuthStateChanged(auth, u => {
-  user = u; ready = false;
+  user = u; ready = false; clearTimeout(timer); timer = null;
   if (unsub) { unsub(); unsub = null; }
   ui.login.hidden = !!u;
   ui.acct.hidden = !u;
@@ -1493,13 +1734,15 @@ onAuthStateChanged(auth, u => {
     ui.avatar.src = u.photoURL || "icons/favicon.png";
     ui.name.textContent = u.displayName || "Sua conta";
     ui.email.textContent = u.email || "";
-    if (ui.info) ui.info.textContent = `Conectado como ${u.email || u.displayName}. Seu progresso fica salvo na conta e sincroniza entre aparelhos.`;
     startSync(u);
   } else {
     setSync("");
-    if (ui.info) ui.info.textContent = "Sem login, o progresso fica salvo só neste aparelho. Entre com Google no topo para salvar na sua conta e ver o mesmo progresso no celular e no PC.";
+    slots = new Map(); active = null;
+    T().setAccount(null);
   }
 });
+
+addEventListener("online", () => { if (user && !ready && !unsub) startSync(user); });
 
 getRedirectResult(auth).catch(e => console.error(e));
 
@@ -1512,10 +1755,12 @@ ui.login.addEventListener("click", async () => {
 });
 ui.acct.addEventListener("click", e => { e.stopPropagation(); ui.menu.hidden = !ui.menu.hidden; ui.acct.setAttribute("aria-expanded", String(!ui.menu.hidden)); });
 document.addEventListener("click", e => { if (!ui.menu.hidden && !ui.menu.contains(e.target)) ui.menu.hidden = true; });
+$("b-slots").addEventListener("click", () => { ui.menu.hidden = true; });
 $("b-logout").addEventListener("click", async () => {
+  if (user && ready) flush();
   await signOut(auth);
   // O progresso já está na conta; limpar evita misturar com a próxima pessoa que entrar neste aparelho.
-  window.tracker.set({});
+  window.tracker.set({}, {});
 });
 </script>
 <script>

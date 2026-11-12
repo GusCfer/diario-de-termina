@@ -1,7 +1,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { initializeFirestore, persistentLocalCache, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeFirestore, persistentLocalCache, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBvS1Fp7iPQOIyKwocf_MgDjeA6XDLwQhw",
@@ -19,47 +19,146 @@ const db = initializeFirestore(app, { localCache: persistentLocalCache() });
 const provider = new GoogleAuthProvider();
 
 const $ = id => document.getElementById(id);
-const ui = { login: $("b-login"), acct: $("b-acct"), avatar: $("avatar"), menu: $("menu"), sync: $("sync"), name: $("acct-name"), email: $("acct-email"), info: $("save-info") };
+const ui = { login: $("b-login"), acct: $("b-acct"), avatar: $("avatar"), menu: $("menu"), sync: $("sync"), name: $("acct-name"), email: $("acct-email") };
+const T = () => window.tracker;
 
-let user = null, unsub = null, ready = false, timer = null;
+/* Cada conta tem até MAX_SLOTS saves em users/{uid}/slots/{id}: { name, state, notes, createdAt, updatedAt }.
+   O slot em uso fica guardado por aparelho (localStorage), então o celular e o PC podem estar em saves diferentes. */
+const MAX_SLOTS = 6;
+let user = null, unsub = null, ready = false, timer = null, active = null, slots = new Map();
 
 function setSync(text, ok) { ui.sync.hidden = !text; ui.sync.textContent = text || ""; ui.sync.classList.toggle("ok", !!ok); }
-function clean(o) { const r = {}; for (const k in o) if (o[k]) r[k] = 1; return r; }
+function clean(o) { const r = {}; for (const k in o || {}) if (o[k]) r[k] = 1; return r; }
+function cleanNotes(n) { const r = {}; for (const k in n || {}) if (typeof n[k] === "string" && n[k]) r[k] = n[k].slice(0, 4000); return r; }
+function same(a, b) { const ka = Object.keys(a).sort(), kb = Object.keys(b).sort(); return ka.length === kb.length && ka.every((k, i) => k === kb[i] && a[k] === b[k]); }
+const slotsCol = uid => collection(db, "users", uid, "slots");
+const slotRef = (uid, id) => doc(db, "users", uid, "slots", id);
+const ms = t => (t && t.toMillis ? t.toMillis() : 0);
+const lsKey = uid => "mm-slot-" + uid;
+function remembered(uid) { try { return localStorage.getItem(lsKey(uid)); } catch (e) { return null; } }
+function remember() { try { localStorage.setItem(lsKey(user.uid), active); } catch (e) {} }
+const newest = () => [...slots.values()].sort((a, b) => b.updated - a.updated)[0];
+const fail = e => { console.error(e); setSync("Erro ao salvar"); };
 
+function publish() {
+  if (!user) return;
+  const list = [...slots.values()].sort((a, b) => a.created - b.created || a.id.localeCompare(b.id));
+  T().setAccount({ email: user.email || user.displayName || "", active, max: MAX_SLOTS, slots: list.map(x => ({ id: x.id, name: x.name, state: x.state, updated: x.updated })) });
+}
+
+function write(uid, sid) {
+  const state = clean(T().get()), notes = cleanNotes(T().notes());
+  const s = slots.get(sid); if (s) Object.assign(s, { state, notes, updated: Date.now() });
+  return updateDoc(slotRef(uid, sid), { state, notes, updatedAt: serverTimestamp() });
+}
 window.cloudPush = () => {
-  if (!user || !ready) return;
+  if (!user || !ready || !active) return;
   setSync("Salvando…");
   clearTimeout(timer);
-  timer = setTimeout(async () => {
-    try {
-      await setDoc(doc(db, "users", user.uid), { state: clean(window.tracker.get()), updatedAt: serverTimestamp() });
-      setSync("Salvo", true);
-    } catch (e) { console.error(e); setSync("Erro ao salvar"); }
+  const uid = user.uid, sid = active;
+  timer = setTimeout(() => {
+    timer = null;
+    write(uid, sid).then(() => setSync("Salvo", true)).catch(fail);
   }, 400);
+};
+/* grava na hora o que está pendente, antes de trocar de save ou sair */
+function flush() {
+  if (!timer) return;
+  clearTimeout(timer); timer = null;
+  write(user.uid, active).then(() => setSync("Salvo", true)).catch(fail);
+}
+
+function useSlot(id) {
+  const s = slots.get(id); if (!s) return;
+  flush();
+  active = id; remember();
+  T().set(s.state, s.notes);
+  publish();
+  setSync("Salvo", true);
+}
+
+window.cloud = {
+  use: id => { if (user && ready && id !== active) useSlot(id); },
+  create() {
+    if (!user || !ready || slots.size >= MAX_SLOTS) return;
+    const names = new Set([...slots.values()].map(x => x.name));
+    let n = slots.size + 1; while (names.has("Save " + n)) n++;
+    const id = "s" + Date.now().toString(36), now = Date.now();
+    slots.set(id, { id, name: "Save " + n, state: {}, notes: {}, created: now, updated: now });
+    setDoc(slotRef(user.uid, id), { name: "Save " + n, state: {}, notes: {}, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
+    useSlot(id);
+  },
+  rename(id, name) {
+    const s = slots.get(id); name = String(name || "").trim().slice(0, 40);
+    if (!user || !s || !name || name === s.name) return;
+    s.name = name;
+    updateDoc(slotRef(user.uid, id), { name }).catch(fail);
+    publish();
+  },
+  remove(id) {
+    if (!user || id === active || !slots.has(id) || slots.size <= 1) return;
+    slots.delete(id);
+    deleteDoc(slotRef(user.uid, id)).catch(fail);
+    publish();
+  }
 };
 
 async function startSync(u) {
-  const ref = doc(db, "users", u.uid);
+  const uid = u.uid;
   setSync("Sincronizando…");
+  slots = new Map(); active = null;
   try {
-    const snap = await getDoc(ref);
-    const remote = snap.exists() ? (snap.data().state || {}) : {};
-    const local = window.tracker.get();
-    const merged = clean({ ...remote, ...local });
-    window.tracker.set(merged);
+    const qs = await getDocs(slotsCol(uid));
+    if (user !== u) return;
+    qs.forEach(d => { const x = d.data(); slots.set(d.id, { id: d.id, name: x.name || "Save", state: x.state || {}, notes: x.notes || {}, created: ms(x.createdAt), updated: ms(x.updatedAt) }); });
+    // Sem internet e sem nada em cache não dá para saber se a conta já tem saves: espera voltar a conexão.
+    if (!slots.size && qs.metadata.fromCache) throw new Error("offline");
+    const local = T().get(), localNotes = T().notes(), mine = remembered(uid);
+    if (!slots.size) {
+      // Primeira vez com slots: o progresso que já estava na conta vira o "Save 1".
+      const old = await getDoc(doc(db, "users", uid)).catch(() => null);
+      const remote = old && old.exists() ? (old.data().state || {}) : {};
+      const now = Date.now(), st = clean({ ...remote, ...local }), nt = cleanNotes(localNotes);
+      slots.set("s1", { id: "s1", name: "Save 1", state: st, notes: nt, created: now, updated: now });
+      setDoc(slotRef(uid, "s1"), { name: "Save 1", state: st, notes: nt, createdAt: serverTimestamp(), updatedAt: serverTimestamp() }).catch(fail);
+      active = "s1";
+    } else {
+      active = slots.has(mine) ? mine : newest().id;
+    }
+    const s = slots.get(active);
+    // O que está neste aparelho só é juntado ao save se pertence a ele (ou se ainda não era de nenhum save).
+    const ownLocal = !mine || mine === active;
+    const st = ownLocal ? clean({ ...s.state, ...local }) : clean(s.state);
+    const nt = ownLocal ? cleanNotes({ ...localNotes, ...s.notes }) : cleanNotes(s.notes);
+    remember();
+    T().set(st, nt);
     ready = true;
-    if (JSON.stringify(Object.keys(merged).sort()) !== JSON.stringify(Object.keys(remote).sort())) window.cloudPush();
+    publish();
+    if (!same(st, clean(s.state)) || !same(nt, cleanNotes(s.notes))) window.cloudPush();
     else setSync("Salvo", true);
-  } catch (e) { console.error(e); setSync("Sem conexão"); ready = true; }
-  unsub = onSnapshot(ref, s => {
-    if (!s.exists() || s.metadata.hasPendingWrites) return;
-    const remote = clean(s.data().state || {});
-    if (JSON.stringify(remote) !== JSON.stringify(clean(window.tracker.get()))) window.tracker.set(remote);
-  });
+  } catch (e) { console.error(e); setSync("Sem conexão"); return; }
+
+  unsub = onSnapshot(slotsCol(uid), qs => {
+    if (user !== u) return;
+    const m = new Map();
+    qs.forEach(d => {
+      const x = d.data({ serverTimestamps: "estimate" });
+      m.set(d.id, { id: d.id, name: x.name || "Save", state: x.state || {}, notes: x.notes || {}, created: ms(x.createdAt), updated: ms(x.updatedAt), pending: d.metadata.hasPendingWrites });
+    });
+    if (!m.size) return;
+    // slots criados aqui que o servidor ainda não devolveu continuam na lista
+    for (const [id, s] of slots) if (!m.has(id) && s.created > Date.now() - 10000) m.set(id, s);
+    slots = m;
+    if (!slots.has(active)) { useSlot(newest().id); return; }
+    const s = slots.get(active);
+    // mudança vinda de outro aparelho: aplica, a não ser que haja edição local esperando para ser gravada
+    if (!s.pending && !timer && (!same(clean(s.state), clean(T().get())) || !same(cleanNotes(s.notes), cleanNotes(T().notes())))) T().set(clean(s.state), cleanNotes(s.notes));
+    publish();
+  }, e => console.error(e));
 }
 
 onAuthStateChanged(auth, u => {
-  user = u; ready = false;
+  user = u; ready = false; clearTimeout(timer); timer = null;
   if (unsub) { unsub(); unsub = null; }
   ui.login.hidden = !!u;
   ui.acct.hidden = !u;
@@ -68,13 +167,15 @@ onAuthStateChanged(auth, u => {
     ui.avatar.src = u.photoURL || "icons/favicon.png";
     ui.name.textContent = u.displayName || "Sua conta";
     ui.email.textContent = u.email || "";
-    if (ui.info) ui.info.textContent = `Conectado como ${u.email || u.displayName}. Seu progresso fica salvo na conta e sincroniza entre aparelhos.`;
     startSync(u);
   } else {
     setSync("");
-    if (ui.info) ui.info.textContent = "Sem login, o progresso fica salvo só neste aparelho. Entre com Google no topo para salvar na sua conta e ver o mesmo progresso no celular e no PC.";
+    slots = new Map(); active = null;
+    T().setAccount(null);
   }
 });
+
+addEventListener("online", () => { if (user && !ready && !unsub) startSync(user); });
 
 getRedirectResult(auth).catch(e => console.error(e));
 
@@ -87,10 +188,12 @@ ui.login.addEventListener("click", async () => {
 });
 ui.acct.addEventListener("click", e => { e.stopPropagation(); ui.menu.hidden = !ui.menu.hidden; ui.acct.setAttribute("aria-expanded", String(!ui.menu.hidden)); });
 document.addEventListener("click", e => { if (!ui.menu.hidden && !ui.menu.contains(e.target)) ui.menu.hidden = true; });
+$("b-slots").addEventListener("click", () => { ui.menu.hidden = true; });
 $("b-logout").addEventListener("click", async () => {
+  if (user && ready) flush();
   await signOut(auth);
   // O progresso já está na conta; limpar evita misturar com a próxima pessoa que entrar neste aparelho.
-  window.tracker.set({});
+  window.tracker.set({}, {});
 });
 </script>
 <script>
